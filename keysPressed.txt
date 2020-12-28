@@ -1,1 +1,1 @@
-w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,w,Key.esc
+d,a,d,a,w,d,a
