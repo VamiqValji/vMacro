@@ -8,12 +8,12 @@ keyboard = Controller()
 keysPressedList = []
 
 startTime = time.time()
-print(startTime)
-
-print("\n\n\nHit escape to exit!\n\nStarting vMacro.\n")
-
+noKeyPressedTime = time.time()
 pressed = False
 replaying = False
+appendCount = 0
+
+print("\n\n\nHit escape to exit!\n\nStarting vMacro.\n")
 
 
 def writeFile():
@@ -47,6 +47,15 @@ def stopCounter():
 def on_press(key):
     global pressed
     global replaying
+    global keysPressedList
+    global noKeyPressedTime
+    global appendCount
+    # if appendCount > 0:
+    #     keysPressedList.append(f", ,")
+    #     appendCount += 1
+    # else:
+    #     keysPressedList.append(f" ,")
+
     if replaying == False:
         pressed = True
         if pressed == False:
@@ -58,33 +67,32 @@ def on_press(key):
 
 def replay():
     global keysPressedList
-    global replaying
-    replaying = True
-    writeFile()
-    os.startfile("keysPressed.txt")
-    for k in keysPressedList:
-        k = keysPressedList.index(k) * 2
-        # print("\n\nfirst" + keysPressedList[k + 1])
-        # start = time.time()
-        keyboard.press(keysPressedList[k])
-        # print("\n\nsecond" + keysPressedList[k + 1])
-        # print(keysPressedList[k])
-        time.sleep(float(keysPressedList[k + 1]))
-        # time.sleep(1)
-        # print("\n\nthird" + keysPressedList[k + 1])
-        # print("Start Loop.")
-        # while True:
-        #     print("Looping.")
-        #     if time.time() == start + keysPressedList[k + 1]:
-        keyboard.release(keysPressedList[k])
-        #         print("End Loop.")
-        #         return False
-        # print("\n\nfourth" + keysPressedList[k + 1])
+    # writeFile()
+    # os.startfile("keysPressed.txt")
+    print(f"\n\n{keysPressedList}\n\n")
+    while True:
+        for k in keysPressedList:
+            if keysPressedList.index(k) < len(keysPressedList):
+                k = keysPressedList.index(k) * 2
+                if keysPressedList[k] != "wait":
+                    keyboard.press(keysPressedList[k])
+                time.sleep(float(keysPressedList[k + 1]))
+                if keysPressedList[k] != "wait":
+                    keyboard.release(keysPressedList[k])
+            else:
+                break
 
 
 def on_release(key):
     global keysPressedList
     global replaying
+    global noKeyPressedTime
+    global pressed
+    pressed = False
+    noKeyPressedTime = time.time() - noKeyPressedTime
+    keysPressedList.append("wait")
+    keysPressedList.append(f"{round(noKeyPressedTime,2)}")
+    noKeyPressedTime = time.time()  # reset
     if key == Key.esc:
         print("\nExited vMacro.\n")
         writeFile()
@@ -93,6 +101,7 @@ def on_release(key):
     elif key == Key.enter:
         if replaying == False:
             replay()
+            replaying = True
     else:
         if replaying == False:
             keysPressedList.append(key)
