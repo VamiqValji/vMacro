@@ -2,6 +2,7 @@ import time
 import os
 import pynput
 from pynput.keyboard import Key, Listener, Controller
+import asyncio
 # from mouse import *
 
 keyboard = Controller()
@@ -14,7 +15,13 @@ pressed = False
 replaying = False
 appendCount = 0
 
-print("\n\n\nHit escape to exit!\n\nStarting vMacro.\n")
+startRunning = False
+
+
+def runKeys():
+    global startRunning
+    startRunning = True
+    print("\n\n\nHit escape to exit!\n\nStarting vMacro.\n")
 
 
 def writeFile():
@@ -31,12 +38,12 @@ def writeFile():
     f.close()
 
 
-def startCounter():
+async def startCounter():
     global startTime
     startTime = time.time()
 
 
-def stopCounter():
+async def stopCounter():
     global pressed
     global startTime
     pressed = False
@@ -45,28 +52,29 @@ def stopCounter():
     return time.time() - endTime
 
 
-def on_press(key):
+async def on_press(key):
     global pressed
     global replaying
     global keysPressedList
     global noKeyPressedTime
     global appendCount
+    global startRunning
     # if appendCount > 0:
     #     keysPressedList.append(f", ,")
     #     appendCount += 1
     # else:
     #     keysPressedList.append(f" ,")
+    if startRunning == True:
+        if replaying == False:
+            pressed = True
+            if pressed == False:
+                print(f"{key} pressed.")
+                startCounter()
+            else:
+                print(f"{key} held down.")
 
-    if replaying == False:
-        pressed = True
-        if pressed == False:
-            print(f"{key} pressed.")
-            startCounter()
-        else:
-            print(f"{key} held down.")
 
-
-def replay():
+async def replay():
     global keysPressedList
     # writeFile()
     # os.startfile("keysPressed.txt")
@@ -84,31 +92,33 @@ def replay():
                 break
 
 
-def on_release(key):
+async def on_release(key):
     global keysPressedList
     global replaying
     global noKeyPressedTime
     global pressed
-    pressed = False
-    noKeyPressedTime = time.time() - noKeyPressedTime
-    keysPressedList.append("wait")
-    keysPressedList.append(f"{round(noKeyPressedTime,2)}")
-    noKeyPressedTime = time.time()  # reset
-    if key == Key.esc:
-        print("\nExited vMacro.\n")
-        # mouseScriptRunning = False
-        writeFile()
-        os.startfile("keysPressed.txt")
-        return False  # break out of loop
-    elif key == Key.enter:
-        if replaying == False:
-            replay()
-            replaying = True
-    else:
-        if replaying == False:
-            keysPressedList.append(key)
-            keysPressedList.append(f"{round(stopCounter(), 2)}")
-            print(f"{key} released.")
+    global startRunning
+    if startRunning == True:
+        pressed = False
+        noKeyPressedTime = time.time() - noKeyPressedTime
+        keysPressedList.append("wait")
+        keysPressedList.append(f"{round(noKeyPressedTime,2)}")
+        noKeyPressedTime = time.time()  # reset
+        if key == Key.esc:
+            print("\nExited vMacro.\n")
+            # mouseScriptRunning = False
+            writeFile()
+            os.startfile("keysPressed.txt")
+            return False  # break out of loop
+        elif key == Key.enter:
+            if replaying == False:
+                replay()
+                replaying = True
+        else:
+            if replaying == False:
+                keysPressedList.append(key)
+                keysPressedList.append(f"{round(stopCounter(), 2)}")
+                print(f"{key} released.")
 
 
 with Listener(on_press=on_press, on_release=on_release) as listener:

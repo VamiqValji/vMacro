@@ -17,7 +17,7 @@ replayRunning = True
 replayTimeCounter = 0
 
 # You can play around with these variables
-timeInterval = 0.2
+timeInterval = 0.05
 maxTime = 3
 
 

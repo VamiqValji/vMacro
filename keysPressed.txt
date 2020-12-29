@@ -1,1 +1,1 @@
-wait1.86,d,1.86wait0.69,a,0.69wait0.72,d,0.72wait1.05
+wait7.9
