@@ -54,38 +54,32 @@ def on_press(key):
             startCounter()
         else:
             print(f"{key} held down.")
-    if key == Key.enter:
-        pressed = False
-        if replaying == False:
-            replay()
-            return False
 
 
 def replay():
     global keysPressedList
     global replaying
     replaying = True
-    # writeFile()
-    # os.startfile("keysPressed.txt")
-    makeEven = 1
+    writeFile()
+    os.startfile("keysPressed.txt")
     for k in keysPressedList:
-        try:
-            print(f"\n\n-REPLAY-\n")
-            if k % 2 != 0:
-                makeEven = k - 1
-            k = keysPressedList.index(k) * 2
-            keyboard.press(keysPressedList[makeEven])
-            print(f"{keysPressedList[makeEven]} being pressed.")
-            time.sleep(1)
-            print(f"Waiting {keysPressedList[k + 1]} seconds.")
-            keyboard.release(keysPressedList[makeEven])
-            print(f"{keysPressedList[makeEven]} released.")
-            if (keysPressedList.index(k) / 2 == len(keysPressedList)):
-                keyboard.release(keysPressedList[makeEven])
-                print("\nMacro Complete.\n")
-                return False
-        except:
-            pass
+        k = keysPressedList.index(k) * 2
+        # print("\n\nfirst" + keysPressedList[k + 1])
+        # start = time.time()
+        keyboard.press(keysPressedList[k])
+        # print("\n\nsecond" + keysPressedList[k + 1])
+        # print(keysPressedList[k])
+        time.sleep(float(keysPressedList[k + 1]))
+        # time.sleep(1)
+        # print("\n\nthird" + keysPressedList[k + 1])
+        # print("Start Loop.")
+        # while True:
+        #     print("Looping.")
+        #     if time.time() == start + keysPressedList[k + 1]:
+        keyboard.release(keysPressedList[k])
+        #         print("End Loop.")
+        #         return False
+        # print("\n\nfourth" + keysPressedList[k + 1])
 
 
 def on_release(key):
@@ -96,6 +90,9 @@ def on_release(key):
         writeFile()
         os.startfile("keysPressed.txt")
         return False  # break out of loop
+    elif key == Key.enter:
+        if replaying == False:
+            replay()
     else:
         if replaying == False:
             keysPressedList.append(key)
