@@ -1,3 +1,4 @@
+import time
 import pynput
 from pynput.keyboard import Key, Listener, Controller
 
@@ -5,7 +6,12 @@ keyboard = Controller()
 
 keysPressedList = []
 
+startTime = time.time()
+print(startTime)
+
 print("\n\n\nHit escape to exit!\n\nStarting vMacro.\n")
+
+pressed = False
 
 
 def writeFile():
@@ -20,9 +26,36 @@ def writeFile():
     f.close()
 
 
-def on_press(key):
+def startCounter():
+    global startTime
+    startTime = time.time()
 
-    print(f"{key} pressed.")
+
+def stopCounter():
+    global pressed
+    global startTime
+    pressed = False
+    endTime = startTime
+    startTime = time.time()
+    return time.time() - endTime
+
+
+def on_press(key):
+    global pressed
+    pressed = True
+    if pressed == False:
+        print(f"{key} pressed.")
+        startCounter()
+    else:
+        print(f"{key} held down.")
+
+
+def replay():
+    global keysPressedList
+    for k in keysPressedList:
+        keyboard.press(k)
+        time.sleep(0.3)
+        keyboard.release(k)
 
 
 def on_release(key):
@@ -32,11 +65,10 @@ def on_release(key):
         writeFile()
         return False  # break out of loop
     elif key == Key.enter:
-        for k in keysPressedList:
-            keyboard.press(k)
-            keyboard.release(k)
+        replay()
     else:
         keysPressedList.append(key)
+        keysPressedList.append(f"{round(stopCounter(), 2)}")
         print(f"{key} released.")
 
 
