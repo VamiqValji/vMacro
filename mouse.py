@@ -8,17 +8,31 @@ mouse = Controller()
 
 mouseMonitorList = []
 
-# mouseScriptRunning = True
 recordingMouse = True
 replayRunning = True
 
-# startTime = time.time()
-
 replayTimeCounter = 0
 
-# You can play around with these variables
 timeInterval = 0.05
 maxTime = 3
+
+
+def clearRunningScripts():
+    try:
+        if os.path.exists("keysRunning.txt"):
+            os.remove("keysRunning.txt")
+        if os.path.exists("mouseRunning.txt"):
+            os.remove("mouseRunning.txt")
+    except:
+        pass
+
+
+clearRunningScripts()
+print("\n\n\nHit escape to exit!\n\nStarting vMacro (Mouse).\n")
+
+f = open("mouseRunning.txt", "w")
+f.write("Running")
+f.close()
 
 
 def replay():
@@ -32,14 +46,16 @@ def replay():
             # print(Move)
             # mouse.move = Move
             mouse.position = mousePos
-            replayTimeCounter += timeInterval
-            replayTimeCounter = round(replayTimeCounter, 1)
+            # replayTimeCounter = round(replayTimeCounter + timeInterval, 1)
+            replayTimeCounter = round(
+                replayTimeCounter, 1) + round(timeInterval, 1)
             time.sleep(timeInterval)
-            print("mouse move")
-            if replayTimeCounter == maxTime:
+            # print("mouse move")
+            if replayTimeCounter > maxTime:
                 # if replayTimeCounter == maxTime - timeInterval:
                 print("Mouse click.")
                 mouse.click(Button.left, 2)
+                clearRunningScripts()
 
 
 def mouseRecord():
