@@ -2,6 +2,7 @@ import time
 import os
 import pynput
 from pynput.keyboard import Key, Listener, Controller
+# from mouse import *
 
 keyboard = Controller()
 
@@ -76,7 +77,7 @@ def replay():
                 k = keysPressedList.index(k) * 2
                 if keysPressedList[k] != "wait":
                     keyboard.press(keysPressedList[k])
-                time.sleep(float(keysPressedList[k + 1]))
+                time.sleep(float(keysPressedList[k + 1]) / 3)
                 if keysPressedList[k] != "wait":
                     keyboard.release(keysPressedList[k])
             else:
@@ -95,6 +96,7 @@ def on_release(key):
     noKeyPressedTime = time.time()  # reset
     if key == Key.esc:
         print("\nExited vMacro.\n")
+        # mouseScriptRunning = False
         writeFile()
         os.startfile("keysPressed.txt")
         return False  # break out of loop

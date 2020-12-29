@@ -1,0 +1,171 @@
+import os
+from pynput.keyboard import Key, Listener, Controller
+from pynput.mouse import Button, Controller, Listener
+from pynput import mouse
+import time
+
+mouse = Controller()
+
+mouseMonitorList = []
+
+# mouseScriptRunning = True
+recordingMouse = True
+replayRunning = True
+
+# startTime = time.time()
+
+replayTimeCounter = 0
+
+# You can play around with these variables
+timeInterval = 0.2
+maxTime = 3
+
+
+def replay():
+    print("\nReplay")
+    global replayTimeCounter
+    global timeInterval
+    global maxTime
+    for mousePos in mouseMonitorList:
+        if replayTimeCounter <= maxTime:
+            # Move = tuple(map(lambda x, y: x - y, mouse.position, mousePos))
+            # print(Move)
+            # mouse.move = Move
+            mouse.position = mousePos
+            replayTimeCounter += timeInterval
+            replayTimeCounter = round(replayTimeCounter, 1)
+            time.sleep(timeInterval)
+            print("mouse move")
+            if replayTimeCounter == maxTime:
+                # if replayTimeCounter == maxTime - timeInterval:
+                print("Mouse click.")
+                mouse.click(Button.left, 2)
+
+
+def mouseRecord():
+    global mouseMonitorList
+    global recordingMouse
+    global replayTimeCounter
+    global timeInterval
+    global maxTime
+    replayTimeCounter = 0
+    # global startTime
+    timeCounter = 0
+    while recordingMouse:
+        if timeCounter < maxTime:
+            timeCounter += timeInterval
+            print(mouse.position)
+            mouseMonitorList.append(mouse.position)
+            time.sleep(timeInterval)
+        else:
+            writeMouse()
+            replay()
+            recordingMouse = False
+
+
+def writeMouse():
+    f = open("mouseMonitor.txt", "w")
+    f.write(str(mouseMonitorList))
+    f.close()
+
+
+# def on_click(x, y, button, pressed):
+#     print("test")
+#     global mouseScriptRunning
+#     if pressed:
+#         print("test")
+#         if button == Button.right:
+#             mouseScriptRunning = False
+#             replay()
+    # writeMouse()
+    # elif key == Key.esc:
+    #     mouseScriptRunning = False
+    #     replay()
+    #     writeMouse()
+
+
+# def on_scroll(x, y, dx, dy):
+#     pass
+
+
+mouseRecord()
+
+# with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:
+#     listener.join()
+
+
+# mouse = Controller()
+
+# mouseMonitorList = []
+
+# mouseScriptRunning = True
+
+# # startTime = time.time()
+
+
+# def mouseRecord():
+#     global mouseMonitorList
+#     global mouseScriptRunning
+#     # global startTime
+#     while mouseScriptRunning:
+#         print(mouse.position)
+#         time.sleep(0.2)
+#         mouseMonitorList.append(mouse.position)
+
+
+# def writeMouse():
+#     f = open("mouseMonitor.txt", "w")
+#     f.write(str(mouseMonitorList))
+#     f.close()
+#     # os.startfile("mouseMonitor.txt")
+
+
+# # def on_press(key):
+# #     global mouseScriptRunning
+# #     if key == Key.enter:
+# #         mouseScriptRunning = False
+# #         replay()
+# #         writeMouse()
+# #     elif key == Key.esc:
+# #         mouseScriptRunning = False
+# #         replay()
+# #         writeMouse()
+
+
+# def replay():
+#     print("\nREPLAY")
+#     for mousePos in mouseMonitorList:
+#         mouse.position = mousePos
+#         time.sleep(0.2)
+
+
+# # def on_release():
+# #     pass
+
+
+# def on_move(x, y):
+#     pass
+
+
+# def on_click(x, y, button, pressed):
+#     global mouseScriptRunning
+#     if button == Button.right:
+#         mouseScriptRunning = False
+#         replay()
+#         # writeMouse()
+#     # elif key == Key.esc:
+#     #     mouseScriptRunning = False
+#     #     replay()
+#     #     writeMouse()
+
+
+# def on_scroll(x, y, dx, dy):
+#     pass
+
+
+# mouseRecord()
+
+# with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as mouseListener:
+#     mouseListener.join()
+# # with Listener(on_press=on_press, on_release=on_release) as listener:
+# #     listener.join()  # loop until broken out
