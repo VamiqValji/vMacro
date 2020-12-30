@@ -5,32 +5,33 @@ import time
 # from keys import runKeys
 
 root = Tk()
+root.title("vMacro")
 
 # e = Entry(root, width=50)
 # e.grid(row=3, column=0)
+
+status = Label(root, text="Not Recording",  bd=1, relief=SUNKEN)
 
 
 def onClick():
     # print("Clicked.")
     # print(e.get())
+    global status
     try:
         if os.path.exists("keysRunning.txt") == False:
             os.startfile("keys.py")
+            status['text'] = 'Recording'
         else:
-            keysRunningLabel.grid(root, row=2, column=0)
+            keysRunningLabel.grid(root, row=2, column=0, bd=5)
+            # status['text'] = 'Not Recording'
         if os.path.exists("mouseRunning.txt") == False:
             os.startfile("mouse.py")
+            status['text'] = 'Recording'
         else:
             mouseRunningLabel.grid(root, row=3, column=0)
+            # status['text'] = 'Not Recording'
     except:
         pass
-
-
-def amIRecording():
-    if os.path.exists("keysRunning.txt") == False:
-        return "Not Recording"
-    if os.path.exists("mouseRunning.txt") == False:
-        return "Recording"
 
 
 def resetScripts():
@@ -45,22 +46,24 @@ async def checkKeysRunning():
         time.sleep(0.1)
         print("test")
 
-# img
+# frame = LabelFrame(root, text="Click me!")
+# Images
 # myImg = ImageTk.PhotoImage(Image.open("/"))
+runBtn = Button(root, text="Run", padx=10, pady=5, command=onClick)
+resetBtn = Button(root, text="Reset", padx=10, pady=5, command=resetScripts)
 
 clickMeTxt = Label(root, text="Click me!")
 resetTxt = Label(root, text="Not working? Click the reset button.")
-status = Label(root, text=amIRecording)
 mouseRunningLabel = Label(root, text="Mouse vMacro script is already running.")
 keysRunningLabel = Label(
     root, text="Keyboard vMacro script is already running.")
 
-runBtn = Button(root, text="Run", padx=10, pady=5, command=onClick)
-resetBtn = Button(root, text="Reset", padx=10, pady=5, command=resetScripts)
 
-clickMeTxt.grid(row=0, column=0)
-runBtn.grid(row=1, column=0)
-resetBtn.grid(row=4, column=0)
-status.grid(row=100, column=0)
+runBtn.grid(row=1, column=0, padx=5, pady=5)
+resetBtn.grid(row=4, column=0, padx=5, pady=5)
+
+clickMeTxt.grid(row=0, column=0, padx=5, pady=5)
+resetTxt.grid(row=5, column=0, padx=5, pady=5)
+status.grid(row=100, column=0, sticky=W+E)
 
 root.mainloop()
