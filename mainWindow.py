@@ -2,6 +2,7 @@ from tkinter import *
 import os
 import asyncio
 import time
+from profilesWindow import openProfilesWindow
 # from keys import runKeys
 
 root = Tk()
@@ -51,6 +52,8 @@ async def checkKeysRunning():
 # myImg = ImageTk.PhotoImage(Image.open("/"))
 runBtn = Button(root, text="Run", padx=10, pady=5, command=onClick)
 resetBtn = Button(root, text="Reset", padx=10, pady=5, command=resetScripts)
+profilesBtn = Button(root, text="Profiles",
+                     padx=10, pady=5, bd=3, command=openProfilesWindow)
 
 clickMeTxt = Label(root, text="Click me!")
 resetTxt = Label(root, text="Not working? Click the reset button.")
@@ -61,9 +64,11 @@ keysRunningLabel = Label(
 
 runBtn.grid(row=1, column=0, padx=5, pady=5)
 resetBtn.grid(row=4, column=0, padx=5, pady=5)
+profilesBtn.grid(row=7, column=0, padx=10, pady=10)
 
-clickMeTxt.grid(row=0, column=0, padx=5, pady=5)
 resetTxt.grid(row=5, column=0, padx=5, pady=5)
 status.grid(row=100, column=0, sticky=W+E)
 
-root.mainloop()
+# root.mainloop()
+
+mainloop()

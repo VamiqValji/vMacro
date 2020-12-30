@@ -32,6 +32,11 @@ def clearRunningScripts():
     #             os.remove(file)
     try:
         if os.path.exists("keysRunning.txt"):
+            f = open("keysPressed.txt", "r")
+            fp = open("keysPressed_prev_log.txt", "w")
+            fp.write(f.read())
+            f.close()
+            fp.close()
             os.remove("keysRunning.txt")
         if os.path.exists("mouseRunning.txt"):
             os.remove("mouseRunning.txt")
