@@ -4,9 +4,23 @@ from tkinter import *
 # prevLog = f.read()
 # print(prevLog)
 
+listOfLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+                 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-def submitProfile(profileName):
+listOfProfiles = ['Profile 1', 'Profile 2', 'Profile 3', 'Profile 4',
+                  'Profile 5', 'Profile 6', 'Profile 7', 'Profile 8', 'Profile 9', 'Profile 10']
+
+
+def submitProfile(profileName, replaced, replacement, profileLoc):
     print(profileName)
+    print(replaced)
+    print(replacement)
+    print(profileLoc)
+    profileLoc = (profileLoc.replace(" ", "")).lower()
+    f = open(f"profiles/{profileLoc}/macro.txt", "w")
+    # f = open("/profiles/" +{profileLoc.replace(" ", "")}/macro.txt", "w")
+    f.write(f"{profileName}\n{replaced}\n{replacement}")
+    f.close()
 
 
 def createProfile():
@@ -25,16 +39,33 @@ def createProfile():
     inpField2Txt = Label(
         prof, text="What key will be replaced?", pady="5", padx="5")
     inpField2Txt.pack()
-    inpField2Entry = Entry(
-        prof, width="10")
-    inpField2Entry.pack()
+    # inpField2Entry = Entry(
+    #     prof, width="10")
+    # inpField2Entry.pack()
+    dropDownReplaced = StringVar()
+    dropDownReplaced.set("Unset")
+    inpField2Drop = OptionMenu(
+        prof, dropDownReplaced, *listOfLetters)
+    inpField2Drop.pack()
     # Input Field 3
     inpField3Txt = Label(
         prof, text="What key would you like to map the replacement to?", pady="5", padx="5")
     inpField3Txt.pack()
-    inpField3Entry = Entry(
-        prof, width="10")
-    inpField3Entry.pack()
+    dropDownReplacement = StringVar()
+    dropDownReplacement.set("Unset")
+    inpField3Drop = OptionMenu(
+        prof, dropDownReplacement, *listOfLetters)
+    inpField3Drop.pack()
+    # Input Field 4
+    inpField4Txt = Label(
+        prof, text="Under which profile would you like to write / overwrite these settings to?", pady="5", padx="5")
+    inpField4Txt.pack()
+    dropWhichProfile = StringVar()
+    dropWhichProfile.set("Unset")
+    inpField4Drop = OptionMenu(
+        prof, dropWhichProfile, *listOfProfiles)
+    inpField4Drop.pack()
+    # Example Description
     # Example Description
     desc1Txt = Label(
         prof, text="Example: If 'w' was being replaced with 's',", pady="0", padx="8")
@@ -52,6 +83,9 @@ def createProfile():
     #
     # Submit
     submitBtn = Button(
-        prof, text="Submit", pady="2", command=lambda: submitProfile(inpField1Entry.get()))
+        prof, text="Submit", pady="2", command=lambda: submitProfile(inpField1Entry.get(), dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()))
     submitBtn.pack()
     mainloop()
+
+
+createProfile()
