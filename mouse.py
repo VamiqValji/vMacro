@@ -3,6 +3,7 @@ from pynput.keyboard import Key, Listener, Controller
 from pynput.mouse import Button, Controller, Listener
 from pynput import mouse
 import time
+from PIL import ImageTk, Image
 
 mouse = Controller()
 
@@ -85,6 +86,8 @@ def writeMouse():
     f.close()
 
 
+mouseRecord()
+
 # def on_click(x, y, button, pressed):
 #     print("test")
 #     global mouseScriptRunning
@@ -93,18 +96,16 @@ def writeMouse():
 #         if button == Button.right:
 #             mouseScriptRunning = False
 #             replay()
-    # writeMouse()
-    # elif key == Key.esc:
-    #     mouseScriptRunning = False
-    #     replay()
-    #     writeMouse()
+# writeMouse()
+# elif key == Key.esc:
+#     mouseScriptRunning = False
+#     replay()
+#     writeMouse()
 
 
 # def on_scroll(x, y, dx, dy):
 #     pass
 
-
-mouseRecord()
 
 # with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:
 #     listener.join()

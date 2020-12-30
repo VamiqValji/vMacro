@@ -34,7 +34,7 @@ def clearRunningScripts():
         if os.path.exists("keysRunning.txt"):
             os.remove("keysRunning.txt")
         if os.path.exists("mouseRunning.txt"):
-            os.remove("keysRunning.txt")
+            os.remove("mouseRunning.txt")
     except:
         pass
 
@@ -59,7 +59,9 @@ def writeFile():
             keyPressed = f",{keyPressed},"
         keysPressedStr += f"'{keyPressed}'"
     keysPressedStr = ((keysPressedStr.replace(
-        "'''", ",")).strip("''")).replace("'", "")
+        "'''", ",")).strip("''")).replace("'", "").replace("wait", ",wait,")
+    if keysPressedStr[1:5] == "wait":
+        keysPressedStr = keysPressedStr[1:]
     f.write(keysPressedStr)
     f.close()
 
