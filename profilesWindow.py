@@ -8,9 +8,9 @@ from createProfileWindow import createProfile
 def openProfilesWindow():
     prof = Toplevel()
     prof.title("vMacro")
-    profTitles = Label(
+    profsTitle = Label(
         prof, text="Profiles", pady="10", padx="5")
-    profTitles.pack()
+    profsTitle.pack()
     createProfBtn = Button(
         prof, text="Create New Profile", command=createProfile)
     createProfBtn.pack()
