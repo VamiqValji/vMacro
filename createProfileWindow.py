@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 
 # f = open("keysPressed_prev_log.txt", "r")
 # prevLog = f.read()
@@ -11,16 +12,25 @@ listOfProfiles = ['Profile 1', 'Profile 2', 'Profile 3', 'Profile 4',
                   'Profile 5', 'Profile 6', 'Profile 7', 'Profile 8', 'Profile 9', 'Profile 10']
 
 
+def popUp():
+    # showwarning
+    messagebox.showerror("Invalid Submission",
+                         "Please fill out all of the inputs of the form.")
+
+
 def submitProfile(profileName, replaced, replacement, profileLoc):
     print(profileName)
     print(replaced)
     print(replacement)
     print(profileLoc)
-    profileLoc = (profileLoc.replace(" ", "")).lower()
-    f = open(f"profiles/{profileLoc}/macro.txt", "w")
-    # f = open("/profiles/" +{profileLoc.replace(" ", "")}/macro.txt", "w")
-    f.write(f"{profileName}\n{replaced}\n{replacement}")
-    f.close()
+    if len(profileName) > 0 and len(replaced) == 1 and len(replacement) == 1 and profileLoc != "Unset":
+        profileLoc = (profileLoc.replace(" ", "")).lower()
+        f = open(f"profiles/{profileLoc}/macro.txt", "w")
+        # f = open("/profiles/" +{profileLoc.replace(" ", "")}/macro.txt", "w")
+        f.write(f"{profileName}\n{replaced}\n{replacement}")
+        f.close()
+    else:
+        popUp()
 
 
 def createProfile():
