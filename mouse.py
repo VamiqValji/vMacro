@@ -20,10 +20,10 @@ maxTime = 3
 
 def clearRunningScripts():
     try:
-        if os.path.exists("keysRunning.txt"):
-            os.remove("keysRunning.txt")
-        if os.path.exists("mouseRunning.txt"):
-            os.remove("mouseRunning.txt")
+        if os.path.exists("../vMacro/logs/keysRunning.txt"):
+            os.remove("../vMacro/logs/keysRunning.txt")
+        if os.path.exists("../vMacro/logs/mouseRunning.txt"):
+            os.remove("../vMacro/logs/mouseRunning.txt")
     except:
         pass
 
@@ -31,7 +31,7 @@ def clearRunningScripts():
 clearRunningScripts()
 print("\n\n\nHit escape to exit!\n\nStarting vMacro (Mouse).\n")
 
-f = open("mouseRunning.txt", "w")
+f = open("../vMacro/logs/mouseRunning.txt", "w")
 f.write("Running")
 f.close()
 
@@ -81,7 +81,7 @@ def mouseRecord():
 
 
 def writeMouse():
-    f = open("mouseMonitor.txt", "w")
+    f = open("../vMacro/logs/mouseMonitor.txt", "w")
     f.write(str(mouseMonitorList))
     f.close()
 

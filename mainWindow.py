@@ -1,8 +1,11 @@
 from tkinter import *
 import os
+from os import listdir
+from os.path import isfile, join
 import asyncio
 import time
 from profilesWindow import openProfilesWindow
+
 # from keys import runKeys
 
 root = Tk()
@@ -18,15 +21,26 @@ def onClick():
     # print("Clicked.")
     # print(e.get())
     global status
+    # try:
+    # onlyfiles = [f for f in listdir("../vMacro/logs/")]
+    # print(onlyfiles)
     try:
-        if os.path.exists("keysRunning.txt") == False:
+        if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
+            print("test")
             os.startfile("keys.py")
             status['text'] = 'Recording'
         else:
-            keysRunningLabel.grid(root, row=2, column=0, bd=5)
+            keysRunningLabel.grid(root, row=2, column=0)
             # status['text'] = 'Not Recording'
-        if os.path.exists("mouseRunning.txt") == False:
-            os.startfile("mouse.py")
+        if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
+            # f = open("../vMacro/scripts/mouse.py", "r")
+            # mousepy = open("../vMacro/windows/mouse.py", "w")
+            # mousepy.write(f.read())
+            # mousepy.close()
+            # f.close()
+            # onlyfiles = [f for f in listdir("../vMacro/client/")]
+            # print(onlyfiles)
+            os.startfile('mouse.py')
             status['text'] = 'Recording'
         else:
             mouseRunningLabel.grid(root, row=3, column=0)
@@ -36,10 +50,13 @@ def onClick():
 
 
 def resetScripts():
-    if os.path.exists("keysRunning.txt"):
-        os.remove("keysRunning.txt")
-    if os.path.exists("mouseRunning.txt"):
-        os.remove("mouseRunning.txt")
+    try:
+        if os.path.exists("../vMacro/logs/keysRunning.txt"):
+            os.remove("../vMacro/logs/keysRunning.txt")
+        if os.path.exists("../vMacro/logs/mouseRunning.txt"):
+            os.remove("../vMacro/logs/mouseRunning.txt")
+    except:
+        pass
 
 
 async def checkKeysRunning():

@@ -25,7 +25,7 @@ def submitProfile(profileName, replaced, replacement, profileLoc):
     print(profileLoc)
     if len(profileName) > 0 and len(replaced) == 1 and len(replacement) == 1 and profileLoc != "Unset":
         profileLoc = (profileLoc.replace(" ", "")).lower()
-        f = open(f"profiles/{profileLoc}/macro.txt", "w")
+        f = open(f"../vMacro/profiles/{profileLoc}/macro.txt", "w")
         # f = open("/profiles/" +{profileLoc.replace(" ", "")}/macro.txt", "w")
         f.write(f"{profileName}\n{replaced}\n{replacement}")
         f.close()
@@ -96,6 +96,3 @@ def createProfile():
         prof, text="Submit", pady="2", command=lambda: submitProfile(inpField1Entry.get(), dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()))
     submitBtn.pack()
     mainloop()
-
-
-createProfile()

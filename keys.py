@@ -31,15 +31,15 @@ def clearRunningScripts():
     #         with open(file) as f:
     #             os.remove(file)
     try:
-        if os.path.exists("keysRunning.txt"):
-            f = open("keysPressed.txt", "r")
-            fp = open("keysPressed_prev_log.txt", "w")
+        if os.path.exists("../vMacro/logs/keysRunning.txt"):
+            f = open("../vMacro/logs/keysPressed.txt", "r")
+            fp = open("../vMacro/logs/keysPressed_prev_log.txt", "w")
             fp.write(f.read())
             f.close()
             fp.close()
-            os.remove("keysRunning.txt")
+            os.remove("../vMacro/logs/keysRunning.txt")
         if os.path.exists("mouseRunning.txt"):
-            os.remove("mouseRunning.txt")
+            os.remove("../vMacro/logs/mouseRunning.txt")
     except:
         pass
 
@@ -50,13 +50,13 @@ def clearRunningScripts():
 clearRunningScripts()
 print("\n\n\nHit escape to exit!\n\nStarting vMacro (Keyboard).\n")
 
-f = open("keysRunning.txt", "w")
+f = open("../vMacro/logs/keysRunning.txt", "w")
 f.write("Running")
 f.close()
 
 
 def writeFile():
-    f = open("keysPressed.txt", "w")
+    f = open("../vMacro/logs/keysPressed.txt", "w")
     keysPressedStr = ""
     print(keysPressedList)
     for keyPressed in keysPressedList:
@@ -145,7 +145,7 @@ def on_release(key):
         print("\nExited vMacro.\n")
         # mouseScriptRunning = False
         writeFile()
-        os.startfile("keysPressed.txt")
+        os.startfile("../vMacro/logs/keysPressed.txt")
         clearRunningScripts()
         return False  # break out of loop
     elif key == Key.enter:
