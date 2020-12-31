@@ -17,8 +17,6 @@ pressed = False
 replaying = False
 appendCount = 0
 
-# startRunning = False
-
 
 def clearRunningScripts():
     # path = os.path.dirname(os.path.abspath(__file__))
@@ -44,9 +42,6 @@ def clearRunningScripts():
         pass
 
 
-# def runKeys():
-#     global startRunning
-#     startRunning = True
 clearRunningScripts()
 print("\n\n\nHit escape to exit!\n\nStarting vMacro (Keyboard).\n")
 
@@ -91,13 +86,6 @@ def on_press(key):
     global keysPressedList
     global noKeyPressedTime
     global appendCount
-    # global startRunning
-    # if appendCount > 0:
-    #     keysPressedList.append(f", ,")
-    #     appendCount += 1
-    # else:
-    #     keysPressedList.append(f" ,")
-    # if startRunning == True:
     if replaying == False:
         pressed = True
         if pressed == False:
@@ -109,8 +97,6 @@ def on_press(key):
 
 def replay():
     global keysPressedList
-    # writeFile()
-    # os.startfile("keysPressed.txt")
     print(f"\n\n{keysPressedList}\n\n")
     while True:
         for k in keysPressedList:
@@ -134,8 +120,6 @@ def on_release(key):
     global replaying
     global noKeyPressedTime
     global pressed
-    # global startRunning
-    # if startRunning == True:
     pressed = False
     noKeyPressedTime = time.time() - noKeyPressedTime
     keysPressedList.append("wait")
@@ -143,7 +127,6 @@ def on_release(key):
     noKeyPressedTime = time.time()  # reset
     if key == Key.esc:
         print("\nExited vMacro.\n")
-        # mouseScriptRunning = False
         writeFile()
         os.startfile("../vMacro/logs/keysPressed.txt")
         clearRunningScripts()
