@@ -50,9 +50,9 @@ def startMacroWindow():
     empty1 = Label(prof, text="", pady="2")
     empty1.pack()
     profSettingsBtn = Button(
-        prof, text="Profile Settings", command=openProfilesWindow, padx="4")
+        prof, text="Profiles Settings", command=openProfilesWindow, padx="4")
     profSettingsBtn.pack()
     mainloop()
 
 
-startMacroWindow()
+# startMacroWindow()

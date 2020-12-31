@@ -29,6 +29,8 @@ def submitProfile(profileName, replaced, replacement, profileLoc):
         # f = open("/profiles/" +{profileLoc.replace(" ", "")}/macro.txt", "w")
         f.write(f"{profileName}\n{replaced}\n{replacement}")
         f.close()
+        messagebox.showinfo("Profile Success",
+                            "Profile addition / changes have been made.")
     else:
         popUp()
 

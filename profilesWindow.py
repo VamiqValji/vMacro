@@ -40,9 +40,14 @@ def openProfilesWindow():
 
         # profile name, profile replaced, profile replacement
 
-        def submitChanges():
-
-            print("changes submitted")
+        def submitChanges(profName, replaced, replacement):
+            thisFolder = os.path.dirname(os.path.abspath(
+                __file__)) + f"/profiles/profile{profileNum}/"
+            my_file = os.path.join(thisFolder, "macro.txt")
+            f = open(my_file, "w")
+            f.write(f"{profName}\n{replaced}\n{replacement}")
+            f.close()
+            messagebox.showinfo("Settings Changed", "Submission complete.")
 
         # checkProfiles
 
@@ -57,7 +62,7 @@ def openProfilesWindow():
             thisFolder = os.path.dirname(os.path.abspath(
                 __file__)) + f"/profiles/profile{profileNum}/"
             my_file = os.path.join(thisFolder, "macro.txt")
-            f = open(my_file)
+            f = open(my_file, "r")
             profileInfo = f.readlines()
             f.close()
             pName = (profileInfo[0]).replace("\n", "")
@@ -102,7 +107,7 @@ def openProfilesWindow():
             empty1 = Label(prof, text="", pady="2")
             empty1.pack()
             submitBtn = Button(
-                prof, text="Submit Changes", pady="0", padx="8", command=submitChanges)
+                prof, text="Submit Changes", pady="0", padx="8", command=lambda: submitChanges(pName, dropDownReplaced.get(), dropDownReplacement.get()))
             submitBtn.pack()
             empty2 = Label(prof, text="", pady="1")
             empty2.pack()
@@ -110,8 +115,21 @@ def openProfilesWindow():
             messagebox.showerror("Invalid Submission",
                                  "Please select a profile.")
 
-    def deleteProfiles():
-        pass
+    def deleteProfile(profName):
+        profileNum = int(str(profName)[-1:])
+        if profileNum == 1:
+            messagebox.showerror("Invalid Deletion",
+                                 "You may not delete Profile 1.")
+        else:
+            response = messagebox.askokcancel(
+                "Delete Warning", f"You are about about to delete {profName}.")
+            if response == 1:  # OK
+                thisFolder = os.path.dirname(os.path.abspath(
+                    __file__)) + f"/profiles/profile{profileNum}/"
+                my_file = os.path.join(thisFolder, "macro.txt")
+                os.remove(my_file)
+            else:  # CANCEL
+                pass
 
     checkProfiles()
 
@@ -137,7 +155,7 @@ def openProfilesWindow():
     inpField4TxtSub.pack()
     addEmptySpace(.5)
     deleteProfsBtn = Button(
-        prof, text="Delete Profiles", command=deleteProfiles, padx="4")
+        prof, text="Delete Selected Profile", command=lambda: deleteProfile(dropWhichProfile.get()), padx="4")
     deleteProfsBtn.pack()
     addEmptySpace(.5)
     createProfBtn = Button(
@@ -147,4 +165,4 @@ def openProfilesWindow():
     mainloop()
 
 
-openProfilesWindow()
+# openProfilesWindow()
