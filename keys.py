@@ -43,7 +43,7 @@ def clearRunningScripts():
 
 
 clearRunningScripts()
-print("\n\n\nHit escape to exit!\n\nStarting vMacro (Keyboard).\n")
+print("\n\n\nHit escape to exit! Hit enter to replay!\n\nStarting vMacro (Keyboard - RECORDING).\n")
 
 f = open("../vMacro/logs/keysRunning.txt", "w")
 f.write("Running")

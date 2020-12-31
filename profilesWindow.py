@@ -54,10 +54,6 @@ def openProfilesWindow():
         try:
             profileNum = int(str(profileNum)[-1:])
 
-            pName = ""
-            pReplaced = ""
-            pReplacement = ""
-
             # getData
             thisFolder = os.path.dirname(os.path.abspath(
                 __file__)) + f"/profiles/profile{profileNum}/"
