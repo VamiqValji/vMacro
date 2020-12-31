@@ -9,6 +9,8 @@ from recordingWindow import startRecordingWindow
 
 root = Tk()
 root.title("vMacro")
+# root.iconbitmap("image.png")
+# root.geometry("350x200")
 
 
 def startMacro():

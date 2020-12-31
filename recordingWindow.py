@@ -13,6 +13,10 @@ def startRecordingWindow():
     root = Tk()
     root.title("vMacro")
 
+    title = Label(
+        root, text="Recordings", pady="10", padx="5")
+    title.grid(row=0, column=0)
+
     status = Label(root, text="Not Recording",  bd=1, relief=SUNKEN)
 
     def onClick():
@@ -40,10 +44,10 @@ def startRecordingWindow():
         except:
             pass
 
-    async def checkKeysRunning():
-        while True:
-            time.sleep(0.1)
-            print("test")
+    # async def checkKeysRunning():
+    #     while True:
+    #         time.sleep(0.1)
+    #         print("test")
 
     runBtn = Button(root, text="Run", padx=10, pady=5, command=onClick)
     resetBtn = Button(root, text="Reset", padx=10,
@@ -51,7 +55,6 @@ def startRecordingWindow():
     profilesBtn = Button(root, text="Profiles",
                          padx=10, pady=5, bd=3, command=openProfilesWindow)
 
-    clickMeTxt = Label(root, text="Click me!")
     resetTxt = Label(root, text="Not working? Click the reset button.")
     mouseRunningLabel = Label(
         root, text="Mouse vMacro script is already running.")
