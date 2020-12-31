@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from createProfileWindow import createProfile
 from createProfileWindow import listOfLetters
+import os
 from os import listdir
 from os.path import isfile, join
 # f = open("keysPressed_prev_log.txt", "r")
@@ -36,34 +37,45 @@ def openProfilesWindow():
                 activeProfiles = activeProfiles + [f"Profile {i}"]
 
     def profileSettingsFrame(profileNum):
+
+        # profile name, profile replaced, profile replacement
+
         def submitChanges():
+
             print("changes submitted")
-            pass
 
         # checkProfiles
 
         try:
             profileNum = int(str(profileNum)[-1:])
 
-            def grabData():
-                f = open(
-                    f"..vMacro/profiles/profile{profileNum}/macro.txt", "r")
-                print(f.read())
-                f.close()
-                pass
+            pName = ""
+            pReplaced = ""
+            pReplacement = ""
+
+            # getData
+            thisFolder = os.path.dirname(os.path.abspath(
+                __file__)) + f"/profiles/profile{profileNum}/"
+            my_file = os.path.join(thisFolder, "macro.txt")
+            f = open(my_file)
+            profileInfo = f.readlines()
+            f.close()
+            pName = (profileInfo[0]).replace("\n", "")
+            pReplaced = (profileInfo[1]).replace("\n", "")
+            pReplacement = (profileInfo[2]).replace("\n", "")
 
             prof = Toplevel()
             prof.title("vMacro")
             # Input Field 1
             inpField1Txt = Label(
-                prof, text=f"Edit Profile {str(profileNum)}", pady="5", padx="5")
+                prof, text=f"Edit Profile {str(profileNum)} ({pName})", pady="5", padx="5")
             inpField1Txt.pack()
             # Input Field 2
             inpField2Txt = Label(
                 prof, text="What key will be replaced?", pady="5", padx="5")
             inpField2Txt.pack()
             dropDownReplaced = StringVar()
-            dropDownReplaced.set("Unset")
+            dropDownReplaced.set(pReplaced)
             inpField2Drop = OptionMenu(
                 prof, dropDownReplaced, *listOfLetters)
             inpField2Drop.pack()
@@ -72,7 +84,7 @@ def openProfilesWindow():
                 prof, text="What key would you like to map the replacement to?", pady="5", padx="5")
             inpField3Txt.pack()
             dropDownReplacement = StringVar()
-            dropDownReplacement.set("Unset")
+            dropDownReplacement.set(pReplacement)
             inpField3Drop = OptionMenu(
                 prof, dropDownReplacement, *listOfLetters)
             inpField3Drop.pack()
@@ -86,9 +98,14 @@ def openProfilesWindow():
             desc3Txt = Label(
                 prof, text="was being pressed by you) by the computer as well.", pady="0", padx="8")
             desc3Txt.pack()
+            # Submit
+            empty1 = Label(prof, text="", pady="2")
+            empty1.pack()
             submitBtn = Button(
                 prof, text="Submit Changes", pady="0", padx="8", command=submitChanges)
             submitBtn.pack()
+            empty2 = Label(prof, text="", pady="1")
+            empty2.pack()
         except:
             messagebox.showerror("Invalid Submission",
                                  "Please select a profile.")
@@ -116,7 +133,7 @@ def openProfilesWindow():
         prof, text="Edit Selected Profile", pady="1", padx="5", command=lambda: profileSettingsFrame(dropWhichProfile.get()))
     showSelectionTxt.pack()
     inpField4TxtSub = Label(
-        prof, text="If your profile isn't showing, refresh this window.", pady="0", padx="0")
+        prof, text="If your profile isn't showing, re-open this window.", pady="0", padx="0")
     inpField4TxtSub.pack()
     addEmptySpace(.5)
     deleteProfsBtn = Button(
