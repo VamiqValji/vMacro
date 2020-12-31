@@ -29,6 +29,7 @@ def startMacroWindow():
         try:
             profileNum = int(str(profileNum)[-1:])
             # getData
+            runTxt["text"] = "Hit escape to exit the macro!"
             thisFolder = os.path.dirname(os.path.abspath(
                 __file__)) + f"/profiles/profile{profileNum}/"
             my_file = os.path.join(thisFolder, "macro.txt")
@@ -70,6 +71,9 @@ def startMacroWindow():
     runBtn = Button(
         prof, text="Run", command=lambda: runKeyMacro(dropVar.get()), padx="4")
     runBtn.pack()
+    runTxt = Label(
+        prof, text="", padx="4")
+    runTxt.pack()
     empty1 = Label(prof, text="", pady="2")
     empty1.pack()
     profSettingsTxt1 = Label(prof, text=f"For Unset Profile:", pady="2")
@@ -87,4 +91,4 @@ def startMacroWindow():
     mainloop()
 
 
-startMacroWindow()
+# startMacroWindow()

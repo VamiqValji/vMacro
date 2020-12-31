@@ -5,15 +5,13 @@ import os
 import time
 from os import listdir
 from os.path import isfile, join
-import pyautogui
+# import pyautogui
 
 
 def runKeysMacro(profileNum):
 
     def RUN(replaced, replacement):
         keyboard = Controller()
-
-        keysPressedList = []
 
         pressed = False
 
@@ -52,6 +50,8 @@ def runKeysMacro(profileNum):
 
             global pressed
             pressed = False
+            # print(key == f"'{replaced}'")
+            # print(f"'{replaced}'")
             if key == Key.esc:
                 print("\nExited vMacro.\n")
                 os.startfile("../vMacro/logs/keysPressed.txt")
@@ -62,13 +62,12 @@ def runKeysMacro(profileNum):
                 clearRunningScripts()
                 sys.exit()
                 return False
-            elif key == Key.replaced:
-                # keyboard.press(replacement)
-                # time.sleep(0.1)
-                # keyboard.release(replacement)
+            elif str(key).replace("'", "") == replaced:
+                keyboard.press(replacement)
+                time.sleep(0.05)
+                keyboard.release(replacement)
                 # pyautogui.press(replacement)
-                print(replaced)
-                print(replacement)
+                pass
             else:
                 print(f"{key} released.")
 
