@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import os
 from os import listdir
 from os.path import isfile, join
@@ -44,25 +45,38 @@ def startRecordingWindow():
 
         whatsBeingRecorded = whatsBeingRecorded.replace("Record ", "")
 
-        def RECORD(timeInterv, time, kbUnderstandInt):
+        def RECORD(timeInterv, time, kbUnderstand):
 
             print(timeInterv)
             print(time)
-            print(kbUnderstandInt)
+            print(kbUnderstand)
 
-            if whatsBeingRecorded == "Mouse":
+            if "Unset" in whatsBeingRecorded:
+                messagebox.showerror(
+                    "Invalid Submission", "Please fill in all the required  information correctly.")
+            elif whatsBeingRecorded == "Mouse":
                 try:
-                    if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
-                        startMouseRecord(timeInterv, time)
-                        # os.startfile('mouse.py')
-                        # status['text'] = 'Recording'
+                    if timeInterv.replace(".", "").isdigit() and time.replace(".", "").isdigit():
+                        try:
+                            timeInterv = int(timeInterv)
+                            time = int(time)
+                        except:
+                            timeInterv = float(timeInterv)
+                            time = float(time)
+                        if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
+                            startMouseRecord(timeInterv, time)
+                            # os.startfile('mouse.py')
+                            # status['text'] = 'Recording'
+                        else:
+                            pass
                     else:
-                        pass
+                        messagebox.showerror(
+                            "Incorrect Submission.", "Please select valid inputs (numbers).")
                 except:
                     pass
             elif whatsBeingRecorded == "Keyboard":
                 try:
-                    if kbUnderstandInt == 1:  # User understands how to stop keyboard recording
+                    if kbUnderstand != "Unset":  # User understands how to stop keyboard recording
                         if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
                             os.startfile("keys.py")
                             # startKBRecord()
@@ -71,11 +85,19 @@ def startRecordingWindow():
                         else:
                             pass
                     else:
-                        pass
+                        messagebox.showerror(
+                            "Incorrect Submission.", "Please fill in all forms correctly.")
                 except:
                     pass
             else:  # KB & M
-                pass
+                if kbUnderstand != "Unset" and timeInterv.isnumeric() and time.isnumeric():
+                    if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
+                        startMouseRecord(timeInterv, time)
+                    if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
+                        os.startfile("keys.py")
+                else:
+                    messagebox.showerror(
+                        "Incorrect Submission.", "Please fill in all forms correctly.")
 
         def REPLAY(timeInterv, time):
             if whatsBeingRecorded == "Mouse":
@@ -92,63 +114,71 @@ def startRecordingWindow():
             root, text=f"Record: {whatsBeingRecorded}", pady="10", padx="5")
         title.pack()
 
+        global eTimeInterval
+        global eTime
         eTimeInterval = Entry(root)
         eTime = Entry(root)
+        eTimeInterval.insert(0, '0.1')
+        eTime.insert(0, 'username')
+
+        def renderRecordBtn():
+            Button(root, text="Start Recording",
+                   padx=10, pady=10, command=lambda: RECORD(eTimeInterval.get(), eTime.get(), iUnderstandDropDown.get())).pack()
 
         def renderMouseSettings():
-            global eTimeInterval
-            global eTime
+
             mouseSettingsTitle = Label(
                 root, text="Mouse Settings", pady="12", padx="5")
             mouseSettingsTitle.pack()
             instructionsTxtMouse = Label(
                 root, text="To end the mouse recording once its started, move your mouse.", pady="8", padx="5")
             intervalTxt1 = Label(
-                root, text="Enter a time interval for mouse tracking;", pady="0", padx="5")
+                root, text="Enter a time interval for mouse tracking (seconds);", pady="0", padx="5")
             intervalTxt2 = Label(
                 root, text="the lower the number, the smoother the tracking.", pady="0", padx="5")
-            eTimeInterval = Entry(root)
-            eTimeInterval.insert(0, '0.1')
             intervalTxt3 = Label(
-                root, text="Enter the amount of time the mouse will be tracked", pady="8", padx="5")
-            eTime = Entry(root)
-            eTime.insert(0, 'username')
+                root, text="Enter the amount of time the mouse will be tracked (seconds)", pady="8", padx="5")
             instructionsTxtMouse.pack()
             intervalTxt1.pack()
             intervalTxt2.pack()
             eTimeInterval.pack()
             intervalTxt3.pack()
             eTime.pack()
+            if whatsBeingRecorded == "Mouse":
+                renderRecordBtn()
 
-        understandVar = IntVar()
-        understandVar.set(0)
+        global iUnderstandDropDown
+        iUnderstandDropDown = StringVar()
+        iUnderstandDropDown.set("Unset")
 
         def renderKBSettings():
-            global understandVar
             KBSettingsTitle = Label(
                 root, text="Keyboard Settings", pady="12", padx="5")
             instructionsTxtKB1 = Label(
                 root, text="To end the keyboard recording", pady="4", padx="5")
             instructionsTxtKB2 = Label(
                 root, text="once its started, hit escape.", pady="0", padx="5")
-            # iUnderstandDropDown = StringVar()
-            # iUnderstandDropDown.set("Unset")
-            # inpFieldDrop = OptionMenu(
-            #     root, iUnderstandDropDown, *["I Understand."])
-            understandVar = IntVar()
-            understandVar.set(0)
-            iUnderstand1 = Radiobutton(root, text="I Do Not Understand.",
-                                       variable=understandVar, value=0)
-            iUnderstand2 = Radiobutton(root, text="I Understand.",
-                                       variable=understandVar, value=1)
+
+            inpFieldDrop = OptionMenu(
+                root, iUnderstandDropDown, *["I Understand."])
+            # understandVar = IntVar()
+            # understandVar.set(0)
+            # iUnderstand1 = Radiobutton(root, text="I Do Not Understand.",
+            #                            variable=understandVar, value=0)
+            # iUnderstand2 = Radiobutton(root, text="I Understand.",
+            #                            variable=understandVar, value=1)
             KBSettingsTitle.pack()
             instructionsTxtKB1.pack()
             instructionsTxtKB2.pack()
-            iUnderstand1.pack()
-            iUnderstand2.pack()
-            # inpFieldDrop.pack()
+            # iUnderstand1.pack()
+            # iUnderstand2.pack()
+            inpFieldDrop.pack()
+            renderRecordBtn()
 
-        if whatsBeingRecorded == "Mouse":
+        if "Unset" in whatsBeingRecorded:
+            messagebox.showerror("Invalid Submission",
+                                 "Please choose what you would like to record.")
+        elif whatsBeingRecorded == "Mouse":
             renderMouseSettings()
         elif whatsBeingRecorded == "Keyboard":
             renderKBSettings()
@@ -158,8 +188,7 @@ def startRecordingWindow():
 
         empty3 = Label(root, text="", pady=6)
         empty3.pack()
-        recordBtn = Button(root, text="Start Recording",
-                           padx=10, pady=10, command=lambda: RECORD(eTimeInterval.get(), eTime.get(), understandVar.get()))
+
         resetBtn = Button(root, text="Reset", padx=10,
                           pady=5, command=resetScripts)
 
@@ -170,7 +199,6 @@ def startRecordingWindow():
                            pady=10, command=REPLAY(eTimeInterval.get(), eTime.get()))
         empty5 = Label(root, text="", pady=5)
 
-        recordBtn.pack()
         resetBtn.pack()
         resetTxt.pack()
 
