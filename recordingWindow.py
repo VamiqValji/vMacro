@@ -10,30 +10,6 @@ from profilesWindow import openProfilesWindow
 
 
 def startRecordingWindow():
-    root = Tk()
-    root.title("vMacro")
-
-    title = Label(
-        root, text="Recordings", pady="10", padx="5")
-    title.grid(row=0, column=0)
-
-    status = Label(root, text="Not Recording",  bd=1, relief=SUNKEN)
-
-    def onClick():
-        try:
-            if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
-                print("test")
-                os.startfile("keys.py")
-                status['text'] = 'Recording'
-            else:
-                keysRunningLabel.grid(root, row=2, column=0)
-            if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
-                os.startfile('mouse.py')
-                status['text'] = 'Recording'
-            else:
-                mouseRunningLabel.grid(root, row=3, column=0)
-        except:
-            pass
 
     def resetScripts():
         try:
@@ -44,30 +20,101 @@ def startRecordingWindow():
         except:
             pass
 
-    # async def checkKeysRunning():
-    #     while True:
-    #         time.sleep(0.1)
-    #         print("test")
+    def record():
+        try:
+            if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
+                os.startfile("keys.py")
+                status['text'] = 'Recording'
+            else:
+                keysRunningLabel.grid(root, row=6, column=0)
+            if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
+                os.startfile('mouse.py')
+                status['text'] = 'Recording'
+            else:
+                mouseRunningLabel.grid(root, row=7, column=0)
+        except:
+            pass
 
-    runBtn = Button(root, text="Run", padx=10, pady=5, command=onClick)
-    resetBtn = Button(root, text="Reset", padx=10,
-                      pady=5, command=resetScripts)
-    profilesBtn = Button(root, text="Profiles",
-                         padx=10, pady=5, bd=3, command=openProfilesWindow)
+    def actualRecordingWindow(whatsBeingRecorded):
+        root = Tk()
+        root.title("vMacro")
 
-    resetTxt = Label(root, text="Not working? Click the reset button.")
-    mouseRunningLabel = Label(
-        root, text="Mouse vMacro script is already running.")
-    keysRunningLabel = Label(
-        root, text="Keyboard vMacro script is already running.")
+        whatsBeingRecorded = whatsBeingRecorded.replace("Record ", "")
 
-    runBtn.grid(row=1, column=0, padx=5, pady=5)
-    resetBtn.grid(row=4, column=0, padx=5, pady=5)
-    profilesBtn.grid(row=7, column=0, padx=10, pady=10)
+        title = Label(
+            root, text=f"Record: {whatsBeingRecorded}", pady="10", padx="5")
+        title.pack()
 
-    resetTxt.grid(row=5, column=0, padx=5, pady=5)
-    status.grid(row=100, column=0, sticky=W+E)
+        recordBtn = Button(root, text="Start Recording",
+                           padx=10, pady=5, command=record)
+        resetBtn = Button(root, text="Reset", padx=10,
+                          pady=5, command=resetScripts)
+
+        resetTxt = Label(root, text="Not working? Click the reset button.")
+        empty = Label(
+            root, text="")
+
+        recordBtn.pack()
+        empty.pack()
+        resetBtn.pack()
+        resetTxt.pack()
+
+        def renderMouseSettings():
+            mouseSettingsTitle = Label(
+                root, text="Mouse Settings", pady="12", padx="5")
+
+        def renderKBSettings():
+            KBSettingsTitle = Label(
+                root, text="Keyboard Settings", pady="12", padx="5")
+
+        if whatsBeingRecorded == "Mouse":
+            renderMouseSettings()
+        elif whatsBeingRecorded == "Keyboard":
+            renderKBSettings()
+        else:  # KB & M
+            renderMouseSettings()
+            renderKBSettings()
+
+        mainloop()
+
+    root = Tk()
+    root.title("vMacro")
+
+    title = Label(
+        root, text="Recordings", pady="10", padx="5")
+    title.grid(row=0, column=0)
+    instructions = Label(
+        root, text="Choose What To Record:", pady="4", padx="5")
+
+    # status = Label(root, text="Not Recording",  bd=1, relief=SUNKEN)
+
+    dropDown = StringVar()
+    dropDown.set("Unset")
+    inpFieldDrop = OptionMenu(
+        root, dropDown, *["Record Mouse", "Record Keyboard", "Record Mouse & KB"])
+    openRecordingBtn = Button(
+        root, text="Open Recording Window", padx=10, pady=5, command=lambda: actualRecordingWindow(dropDown.get()))
+
+    # resetTxt = Label(root, text="Not working? Click the reset button.")
+    # mouseRunningLabel = Label(
+    #     root, text="Mouse vMacro script is already running.")
+    # keysRunningLabel = Label(
+    #     root, text="Keyboard vMacro script is already running.")
+    empty = Label(
+        root, text="")
+
+    instructions.grid(row=1, column=0, padx=5, pady=5)
+    inpFieldDrop.grid(row=2, column=0, padx=5, pady=5)
+    openRecordingBtn.grid(row=3, column=0, padx=5, pady=5)
+    empty.grid(row=4, column=0, padx=5, pady=1)
+    # resetBtn.grid(row=5, column=0, padx=5, pady=1)
+
+    # resetTxt.grid(row=6, column=0, padx=5, pady=5)
+    # status.grid(row=100, column=0, sticky=W+E)
 
     # root.mainloop()
 
     mainloop()
+
+
+startRecordingWindow()
