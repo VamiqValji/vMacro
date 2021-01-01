@@ -42,14 +42,6 @@ def clearRunningScripts():
         pass
 
 
-clearRunningScripts()
-print("\n\n\nHit escape to exit! Hit enter to replay!\n\nStarting vMacro (Keyboard - RECORDING).\n")
-
-f = open("../vMacro/logs/keysRunning.txt", "w")
-f.write("Running")
-f.close()
-
-
 def writeFile():
     f = open("../vMacro/logs/keysPressed.txt", "w")
     keysPressedStr = ""
@@ -95,7 +87,7 @@ def on_press(key):
             print(f"{key} held down.")
 
 
-def replay():
+def replayKB():
     global keysPressedList
     print(f"\n\n{keysPressedList}\n\n")
     while True:
@@ -117,7 +109,7 @@ def replay():
 
 def on_release(key):
     global keysPressedList
-    global replaying
+    # global replaying
     global noKeyPressedTime
     global pressed
     pressed = False
@@ -131,15 +123,26 @@ def on_release(key):
         os.startfile("../vMacro/logs/keysPressed.txt")
         clearRunningScripts()
         return False  # break out of loop
-    elif key == Key.enter:
-        if replaying == False:
-            replay()
-            replaying = True
+    # elif key == Key.enter:
+    #     if replaying == False:
+    #         replayKB()
+    #         replaying = True
     else:
         if replaying == False:
             keysPressedList.append(key)
             keysPressedList.append(f"{round(stopCounter(), 2)}")
             print(f"{key} released.")
+
+
+def startKBRecord():
+    clearRunningScripts()
+    print("\n\n\nHit escape to exit! Hit enter to replay!\n\nStarting vMacro (Keyboard - RECORDING).\n")
+
+    f = open("../vMacro/logs/keysRunning.txt", "w")
+    f.write("Running")
+    f.close()
+
+    # start
 
 
 with Listener(on_press=on_press, on_release=on_release) as listener:

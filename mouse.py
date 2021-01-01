@@ -28,15 +28,7 @@ def clearRunningScripts():
         pass
 
 
-clearRunningScripts()
-print("\n\n\nHit escape to exit!\n\nStarting vMacro (Mouse).\n")
-
-f = open("../vMacro/logs/mouseRunning.txt", "w")
-f.write("Running")
-f.close()
-
-
-def replay():
+def replayMouse():
     print("\nReplay")
     global replayTimeCounter
     global timeInterval
@@ -59,7 +51,7 @@ def replay():
                 clearRunningScripts()
 
 
-def mouseRecord():
+def mouseRecord(timeInterv, time):
     global mouseMonitorList
     global recordingMouse
     global replayTimeCounter
@@ -76,7 +68,7 @@ def mouseRecord():
             time.sleep(timeInterval)
         else:
             writeMouse()
-            replay()
+            # replayMouse()
             recordingMouse = False
 
 
@@ -86,7 +78,16 @@ def writeMouse():
     f.close()
 
 
-mouseRecord()
+def startMouseRecord(timeInterv, time):
+    clearRunningScripts()
+    print("\n\n\nHit escape to exit!\n\nStarting vMacro (Mouse).\n")
+
+    f = open("../vMacro/logs/mouseRunning.txt", "w")
+    f.write("Running")
+    f.close()
+
+    mouseRecord(timeInterv, time)
+
 
 # def on_click(x, y, button, pressed):
 #     print("test")
