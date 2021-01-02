@@ -3,7 +3,6 @@ from pynput.keyboard import Key, Listener, Controller
 from pynput.mouse import Button, Controller, Listener
 from pynput import mouse
 import time
-from PIL import ImageTk, Image
 
 mouse = Controller()
 
@@ -28,27 +27,27 @@ def clearRunningScripts():
         pass
 
 
-def replayMouse():
-    print("\nReplay")
-    global replayTimeCounter
-    global timeInterval
-    global maxTime
-    for mousePos in mouseMonitorList:
-        if replayTimeCounter <= maxTime:
-            # Move = tuple(map(lambda x, y: x - y, mouse.position, mousePos))
-            # print(Move)
-            # mouse.move = Move
-            mouse.position = mousePos
-            # replayTimeCounter = round(replayTimeCounter + timeInterval, 1)
-            replayTimeCounter = round(
-                replayTimeCounter, 1) + round(timeInterval, 1)
-            time.sleep(timeInterval)
-            # print("mouse move")
-            if replayTimeCounter > maxTime:
-                # if replayTimeCounter == maxTime - timeInterval:
-                print("Mouse click.")
-                mouse.click(Button.left, 2)
-                clearRunningScripts()
+# def replayMouse():
+#     print("\nReplay")
+#     global replayTimeCounter
+#     global timeInterval
+#     global maxTime
+#     for mousePos in mouseMonitorList:
+#         if replayTimeCounter <= maxTime:
+#             # Move = tuple(map(lambda x, y: x - y, mouse.position, mousePos))
+#             # print(Move)
+#             # mouse.move = Move
+#             mouse.position = mousePos
+#             # replayTimeCounter = round(replayTimeCounter + timeInterval, 1)
+#             replayTimeCounter = round(
+#                 replayTimeCounter, 1) + round(timeInterval, 1)
+#             time.sleep(timeInterval)
+#             # print("mouse move")
+#             if replayTimeCounter > maxTime:
+#                 # if replayTimeCounter == maxTime - timeInterval:
+#                 print("Mouse click.")
+#                 mouse.click(Button.left, 2)
+#                 clearRunningScripts()
 
 
 def mouseRecord(timeIntervalArg, timeArg):

@@ -49,6 +49,13 @@ def startRecordingWindow():
         def RECORD(timeInterv, time, kbUnderstand):
 
             def startMouseRecord(timeInter, time):
+
+                # f = open("logs/replaySettings.txt", "w")
+                # f.write(
+                #     f"{timeInterv}\n{time}")
+                # f.close()
+                # os.startfile("replay.py")
+
                 f = open("../vMacro/logs/mouseRunSettings.txt", "w")
                 f.write(f"{timeInter}\n{time}")
                 os.startfile("mouse.py")
@@ -204,18 +211,18 @@ def startRecordingWindow():
 
             # timeInterv, time, whatsBeingRecorded, kbUnderstand
             def startReplay(timeInterv, time, whatsBeingRecorded, kbUnderstand):
-                f = open("..vMacro/logs/replaySettings.txt")
+                f = open("logs/replaySettings.txt", "w")
                 f.write(
                     f"{timeInterv}\n{time}\n{whatsBeingRecorded}\n{kbUnderstand}")
                 f.close()
-                os.startfile("replayWindow")
+                os.startfile("replay.py")
 
             if "Unset" in whatsBeingRecorded:
                 messagebox.showerror(
                     "Invalid Submission", "Please fill in all the required information correctly.")
             elif whatsBeingRecorded == "Mouse":
                 try:
-                    checkMouse()
+                    # checkMouse()
                     if timeInterv.replace(".", "").isdigit() and time.replace(".", "").isdigit():
                         try:
                             timeInterv = int(timeInterv)
@@ -223,8 +230,6 @@ def startRecordingWindow():
                         except:
                             timeInterv = float(timeInterv)
                             time = float(time)
-                        else:
-                            pass
                         # timeInterv, time, whatsBeingRecorded, kbUnderstand
                         startReplay(timeInterv, time,
                                     whatsBeingRecorded, kbUnderstand)
@@ -261,7 +266,7 @@ def startRecordingWindow():
 
         empty4 = Label(root, text="", pady=8)
         replayBtn = Button(root, text="REPLAY", padx=10,
-                           pady=10, command=REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get()))
+                           pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get()))
         empty5 = Label(root, text="", pady=5)
 
         resetBtn.pack()
