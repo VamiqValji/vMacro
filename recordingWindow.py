@@ -6,7 +6,7 @@ from os.path import isfile, join
 import asyncio
 import time
 from profilesWindow import openProfilesWindow
-from mouse import startMouseRecord
+# from mouse import startMouseRecord
 # from keys import startKBRecord
 # from keys import replayKB
 # from mouse import replayMouse
@@ -46,6 +46,11 @@ def startRecordingWindow():
         whatsBeingRecorded = whatsBeingRecorded.replace("Record ", "")
 
         def RECORD(timeInterv, time, kbUnderstand):
+
+            def startMouseRecord(timeInter, time):
+                f = open("../vMacro/logs/mouseRunSettings.txt", "w")
+                f.write(f"{timeInter}\n{time}")
+                os.startfile("mouse.py")
 
             print(timeInterv)
             print(time)

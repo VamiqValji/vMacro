@@ -51,7 +51,7 @@ def replayMouse():
                 clearRunningScripts()
 
 
-def mouseRecord(timeInterv, time):
+def mouseRecord(timeIntervalArg, timeArg):
     global mouseMonitorList
     global recordingMouse
     global replayTimeCounter
@@ -59,6 +59,8 @@ def mouseRecord(timeInterv, time):
     global maxTime
     replayTimeCounter = 0
     # global startTime
+    timeInterval = float(timeInterval)
+    maxTime = float(timeArg)
     timeCounter = 0
     while recordingMouse:
         if timeCounter < maxTime:
@@ -78,16 +80,25 @@ def writeMouse():
     f.close()
 
 
-def startMouseRecord(timeInterv, time):
+def startMouseRecord():
     clearRunningScripts()
-    print("\n\n\nHit escape to exit!\n\nStarting vMacro (Mouse).\n")
+    print("\n\n\nMove your mouse to exit!\n\nStarting vMacro (Mouse).\n")
 
     f = open("../vMacro/logs/mouseRunning.txt", "w")
     f.write("Running")
     f.close()
 
+    f = open("../vMacro/logs/mouseRunSettings.txt", "r")
+    mouseSettings = f.readlines()
+    f.close()
+
+    timeInterv = mouseSettings[0]
+    time = mouseSettings[1]
+
     mouseRecord(timeInterv, time)
 
+
+startMouseRecord()
 
 # def on_click(x, y, button, pressed):
 #     print("test")
