@@ -136,7 +136,7 @@ def on_release(key):
 
 def startKBRecord():
     clearRunningScripts()
-    print("\n\n\nHit escape to exit! Hit enter to replay!\n\nStarting vMacro (Keyboard - RECORDING).\n")
+    print("\n\n\nHit escape to exit!\n\nStarting vMacro (Keyboard - RECORDING).\n")
 
     f = open("../vMacro/logs/keysRunning.txt", "w")
     f.write("Running")

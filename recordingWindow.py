@@ -6,6 +6,7 @@ from os.path import isfile, join
 import asyncio
 import time
 from profilesWindow import openProfilesWindow
+# from replayWindow import REPLAY
 # from mouse import startMouseRecord
 # from keys import startKBRecord
 # from keys import replayKB
@@ -25,21 +26,21 @@ def startRecordingWindow():
         except:
             pass
 
-    def record():
-        try:
-            if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
-                os.startfile("keys.py")
-                # status['text'] = 'Recording'
-                pass
-            else:
-                pass
-            if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
-                os.startfile('mouse.py')
-                # status['text'] = 'Recording'
-            else:
-                pass
-        except:
-            pass
+    # def record():
+    #     try:
+    #         if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
+    #             os.startfile("keys.py")
+    #             # status['text'] = 'Recording'
+    #             pass
+    #         else:
+    #             pass
+    #         if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
+    #             os.startfile('mouse.py')
+    #             # status['text'] = 'Recording'
+    #         else:
+    #             pass
+    #     except:
+    #         pass
 
     def actualRecordingWindow(whatsBeingRecorded):
 
@@ -58,7 +59,7 @@ def startRecordingWindow():
 
             if "Unset" in whatsBeingRecorded:
                 messagebox.showerror(
-                    "Invalid Submission", "Please fill in all the required  information correctly.")
+                    "Invalid Submission", "Please fill in all the required information correctly.")
             elif whatsBeingRecorded == "Mouse":
                 try:
                     if timeInterv.replace(".", "").isdigit() and time.replace(".", "").isdigit():
@@ -95,7 +96,7 @@ def startRecordingWindow():
                 except:
                     pass
             else:  # KB & M
-                if kbUnderstand != "Unset" and timeInterv.isnumeric() and time.isnumeric():
+                if kbUnderstand != "Unset" and timeInterv.replace(".", "").isdigit() and time.replace(".", "").isdigit():
                     if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
                         startMouseRecord(timeInterv, time)
                     if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
@@ -103,14 +104,6 @@ def startRecordingWindow():
                 else:
                     messagebox.showerror(
                         "Incorrect Submission.", "Please fill in all forms correctly.")
-
-        def REPLAY(timeInterv, time):
-            if whatsBeingRecorded == "Mouse":
-                pass
-            elif whatsBeingRecorded == "Keyboard":
-                pass
-            else:  # KB & M
-                pass
 
         root = Tk()
         root.title("vMacro")
@@ -124,7 +117,7 @@ def startRecordingWindow():
         eTimeInterval = Entry(root)
         eTime = Entry(root)
         eTimeInterval.insert(0, '0.1')
-        eTime.insert(0, 'username')
+        eTime.insert(0, '1')
 
         def renderRecordBtn():
             Button(root, text="Start Recording",
@@ -191,6 +184,73 @@ def startRecordingWindow():
             renderMouseSettings()
             renderKBSettings()
 
+        def REPLAY(timeInterv, time, whatsBeingRecorded, kbUnderstand):
+
+            def checkMouse():
+                fM = open("..vMacro/logs/mouseMonitor.txt", "r")
+                read = fM.read()
+                fM.close()
+                if read == "":
+                    return messagebox.showerror(
+                        "Replay Error", "You can not replay anything until you record something first.")
+
+            def checkKB():
+                fK = open("logs/keysPressed.txt", "r")
+                read = fK.read()
+                fK.close()
+                if read == "":
+                    return messagebox.showerror(
+                        "Replay Error", "You can not replay anything until you record something first.")
+
+            # timeInterv, time, whatsBeingRecorded, kbUnderstand
+            def startReplay(timeInterv, time, whatsBeingRecorded, kbUnderstand):
+                f = open("..vMacro/logs/replaySettings.txt")
+                f.write(
+                    f"{timeInterv}\n{time}\n{whatsBeingRecorded}\n{kbUnderstand}")
+                f.close()
+                os.startfile("replayWindow")
+
+            if "Unset" in whatsBeingRecorded:
+                messagebox.showerror(
+                    "Invalid Submission", "Please fill in all the required information correctly.")
+            elif whatsBeingRecorded == "Mouse":
+                try:
+                    checkMouse()
+                    if timeInterv.replace(".", "").isdigit() and time.replace(".", "").isdigit():
+                        try:
+                            timeInterv = int(timeInterv)
+                            time = int(time)
+                        except:
+                            timeInterv = float(timeInterv)
+                            time = float(time)
+                        else:
+                            pass
+                        # timeInterv, time, whatsBeingRecorded, kbUnderstand
+                        startReplay(timeInterv, time,
+                                    whatsBeingRecorded, kbUnderstand)
+                    else:
+                        messagebox.showerror(
+                            "Incorrect Submission.", "Please select valid inputs (numbers).")
+                except:
+                    pass
+            elif whatsBeingRecorded == "Keyboard":
+                try:
+                    checkKB()
+                    if kbUnderstand != "Unset":
+                        startReplay(timeInterv, time,
+                                    whatsBeingRecorded, kbUnderstand)
+                    else:
+                        messagebox.showerror(
+                            "Incorrect Submission.", "Please fill in all forms correctly.")
+                except:
+                    pass
+            else:  # KB & M
+                checkMouse()
+                checkKB()
+                if kbUnderstand != "Unset" and timeInterv.replace(".", "").isdigit() and time.replace(".", "").isdigit():
+                    startReplay(timeInterv, time,
+                                whatsBeingRecorded, kbUnderstand)
+
         empty3 = Label(root, text="", pady=6)
         empty3.pack()
 
@@ -201,7 +261,7 @@ def startRecordingWindow():
 
         empty4 = Label(root, text="", pady=8)
         replayBtn = Button(root, text="REPLAY", padx=10,
-                           pady=10, command=REPLAY(eTimeInterval.get(), eTime.get()))
+                           pady=10, command=REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get()))
         empty5 = Label(root, text="", pady=5)
 
         resetBtn.pack()
