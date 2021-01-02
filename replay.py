@@ -18,9 +18,9 @@ def replayMouse(timeInterv, mTime, mouseMonitorList):
             mouse.position = mousePos
             # replayTimeCounter = round(
             #     replayTimeCounter, 1) + round(timeInterval, 1)
-            replayTimeCounter += timeInterval
+            replayTimeCounter += timeInterval * 2
             print(replayTimeCounter)
-            time.sleep(timeInterval / 2)
+            time.sleep(timeInterval)
         if replayTimeCounter > maxTime:
             print("Mouse click.")
             mouse.click(Button.left, 2)

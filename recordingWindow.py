@@ -58,6 +58,10 @@ def startRecordingWindow():
 
                 f = open("../vMacro/logs/mouseRunSettings.txt", "w")
                 f.write(f"{timeInter}\n{time}")
+                f.close()
+                f = open("../vMacro/logs/replaySettings.txt", "w")
+                f.write(f"{timeInter}\n{time}")
+                f.close()
                 os.startfile("mouse.py")
 
             print(timeInterv)
@@ -211,10 +215,10 @@ def startRecordingWindow():
 
             # timeInterv, time, whatsBeingRecorded, kbUnderstand
             def startReplay(timeInterv, time, whatsBeingRecorded, kbUnderstand):
-                f = open("logs/replaySettings.txt", "w")
-                f.write(
-                    f"{timeInterv}\n{time}\n{whatsBeingRecorded}\n{kbUnderstand}")
-                f.close()
+                # f = open("logs/replaySettings.txt", "w")
+                # f.write(
+                #     f"{timeInterv}\n{time}\n{whatsBeingRecorded}\n{kbUnderstand}")
+                # f.close()
                 os.startfile("replay.py")
 
             if "Unset" in whatsBeingRecorded:
@@ -264,9 +268,10 @@ def startRecordingWindow():
 
         resetTxt = Label(root, text="Not working? Click the reset button.")
 
-        empty4 = Label(root, text="", pady=8)
+        empty4 = Label(root, text="", pady=4)
         replayBtn = Button(root, text="REPLAY", padx=10,
                            pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get()))
+
         empty5 = Label(root, text="", pady=5)
 
         resetBtn.pack()

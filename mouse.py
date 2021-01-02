@@ -58,7 +58,7 @@ def mouseRecord(timeIntervalArg, timeArg):
     global maxTime
     replayTimeCounter = 0
     # global startTime
-    timeInterval = float(timeInterval)
+    timeInterval = float(timeIntervalArg)
     maxTime = float(timeArg)
     timeCounter = 0
     while recordingMouse:
