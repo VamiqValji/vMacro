@@ -59,9 +59,6 @@ def startRecordingWindow():
                 f = open("../vMacro/logs/mouseRunSettings.txt", "w")
                 f.write(f"{timeInter}\n{time}")
                 f.close()
-                f = open("../vMacro/logs/replaySettings.txt", "w")
-                f.write(f"{timeInter}\n{time}")
-                f.close()
                 os.startfile("mouse.py")
 
             print(timeInterv)
@@ -80,12 +77,15 @@ def startRecordingWindow():
                         except:
                             timeInterv = float(timeInterv)
                             time = float(time)
-                        if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
-                            startMouseRecord(timeInterv, time)
-                            # os.startfile('mouse.py')
-                            # status['text'] = 'Recording'
+
+                        if timeInterv >= 0.05:
+                            if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
+                                startMouseRecord(timeInterv, time)
+                                # os.startfile('mouse.py')
+                                # status['text'] = 'Recording'
                         else:
-                            pass
+                            return messagebox.showerror(
+                                "Incorrect Submission.", "Please make sure the inputted time interval is equal to or atleast 0.05.")
                     else:
                         messagebox.showerror(
                             "Incorrect Submission.", "Please select valid inputs (numbers).")
@@ -195,7 +195,15 @@ def startRecordingWindow():
             renderMouseSettings()
             renderKBSettings()
 
-        def REPLAY(timeInterv, time, whatsBeingRecorded, kbUnderstand):
+        def REPLAY(timeInterv, time, whatsBeingRecorded, kbUnderstand, loopAmount, runSpeed):
+
+            if loopAmount.replace(".", "").isdigit() and runSpeed.replace(".", "").isdigit():
+                f = open("../vMacro/logs/replaySettings.txt", "w")
+                f.write(f"{loopAmount}\n{runSpeed}")
+                f.close()
+            else:
+                return messagebox.showerror(
+                    "Invalid Submission", "Please fill in all the required information correctly.")
 
             def checkMouse():
                 fM = open("..vMacro/logs/mouseMonitor.txt", "r")
@@ -234,7 +242,7 @@ def startRecordingWindow():
                         except:
                             timeInterv = float(timeInterv)
                             time = float(time)
-                        # timeInterv, time, whatsBeingRecorded, kbUnderstand
+
                         startReplay(timeInterv, time,
                                     whatsBeingRecorded, kbUnderstand)
                     else:
@@ -268,17 +276,36 @@ def startRecordingWindow():
 
         resetTxt = Label(root, text="Not working? Click the reset button.")
 
+        global eLoopAmount
+        global eRunSpeed
+
         empty4 = Label(root, text="", pady=4)
         replayBtn = Button(root, text="REPLAY", padx=10,
-                           pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get()))
-
-        empty5 = Label(root, text="", pady=5)
+                           pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get(), eLoopAmount.get(), eRunSpeed.get()))
 
         resetBtn.pack()
         resetTxt.pack()
 
         empty4.pack()
         replayBtn.pack()
+
+        Label(root, text="Replay Settings", pady=7).pack()
+        Label(root, text="Replays will run at their recorded settings", pady=0).pack()
+        Label(root, text="unless the following settings are changed.", pady=0).pack()
+        empty5 = Label(root, text="", pady=5)
+
+        Label(root, text="Loop how many times (default -> 1):", pady=2).pack()
+        eLoopAmount = Entry(root)
+        eLoopAmount.insert(0, '1')
+        eLoopAmount.pack()
+
+        Label(root, text="", pady=3)  # empty
+
+        Label(root, text="Playback speed (default -> 1):", pady=2).pack()
+        eRunSpeed = Entry(root)
+        eRunSpeed.insert(0, '1')
+        eRunSpeed.pack()
+
         empty5.pack()
 
         mainloop()
