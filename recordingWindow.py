@@ -223,11 +223,13 @@ def startRecordingWindow():
 
             # timeInterv, time, whatsBeingRecorded, kbUnderstand
             def startReplay(timeInterv, time, whatsBeingRecorded, kbUnderstand):
-                # f = open("logs/replaySettings.txt", "w")
-                # f.write(
-                #     f"{timeInterv}\n{time}\n{whatsBeingRecorded}\n{kbUnderstand}")
-                # f.close()
-                os.startfile("replay.py")
+                if whatsBeingRecorded == "Mouse":
+                    os.startfile("replayMouse.py")
+                elif whatsBeingRecorded == "Keyboard":
+                    os.startfile("replayKeyboard.py")
+                else:  # KB & M
+                    os.startfile("replayMouse.py")
+                    os.startfile("replayKeyboard.py")
 
             if "Unset" in whatsBeingRecorded:
                 messagebox.showerror(
