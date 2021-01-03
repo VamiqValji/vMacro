@@ -5,32 +5,37 @@ from pynput.mouse import Button, Controller, Listener
 from pynput import mouse
 import ast
 import time
+import sys
 
 
-def replayMouse(timeInterv, mTime, mouseMonitorList, loopAmount, replaySpeed):
+def replayMouse(timeInterv, mTime, mouseMonitorList, loopAmount, replaySpeed, endMethod):
     print("\nReplay")
     replayTimeCounter = 0
     loop = 0
+    prevPos = 0
     timeInterval = float(timeInterv)
     maxTime = float(mTime)
     loopAmount = float(loopAmount)
     replaySpeed = float(replaySpeed)
+    endMethod = int(endMethod)
     mouse = Controller()
     while loop < loopAmount:
         if replayTimeCounter <= maxTime:
             for mousePos in mouseMonitorList:
                 mouse.position = mousePos
-                # replayTimeCounter = round(
-                #     replayTimeCounter, 1) + round(timeInterval, 1)
+                if endMethod == 2:
+                    prevPos = mouse.position
                 replayTimeCounter += timeInterval * 2
                 print(replayTimeCounter)
                 time.sleep(timeInterval / replaySpeed)
+                if endMethod == 2 and mouse.position != prevPos:
+                    sys.exit()
+                    break
             if replayTimeCounter > maxTime:
                 if loop < loopAmount:
                     replayTimeCounter = 0
                 print("Mouse click.")
                 mouse.click(Button.left, 2)
-                # clearRunningScripts()
             loop += 1
 
 
@@ -62,8 +67,10 @@ def getInfo():
 
     loopAmount = replaySett[0]
     replaySpeed = replaySett[1]
+    endMethod = replaySett[2]
 
-    replayMouse(timeInterv, mTime, mousePositionsList, loopAmount, replaySpeed)
+    replayMouse(timeInterv, mTime, mousePositionsList,
+                loopAmount, replaySpeed, endMethod)
 
 
 getInfo()

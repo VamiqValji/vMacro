@@ -130,6 +130,10 @@ def startRecordingWindow():
         eTimeInterval.insert(0, '0.1')
         eTime.insert(0, '1')
 
+        global moveToEnd
+        moveToEnd = StringVar()
+        moveToEnd.set("Manually Close To End Replay")
+
         def renderRecordBtn():
             Button(root, text="Start Recording",
                    padx=10, pady=10, command=lambda: RECORD(eTimeInterval.get(), eTime.get(), iUnderstandDropDown.get())).pack()
@@ -153,6 +157,9 @@ def startRecordingWindow():
             eTimeInterval.pack()
             intervalTxt3.pack()
             eTime.pack()
+            OptionMenu(
+                root, moveToEnd, *["Manually Close To End Replay", "Move Mouse to End Replay"]).pack()
+            Label(root, text="", pady=3).pack()
             if whatsBeingRecorded == "Mouse":
                 renderRecordBtn()
 
@@ -195,18 +202,27 @@ def startRecordingWindow():
             renderMouseSettings()
             renderKBSettings()
 
-        def REPLAY(timeInterv, time, whatsBeingRecorded, kbUnderstand, loopAmount, runSpeed):
+        def REPLAY(timeInterv, time, whatsBeingRecorded, kbUnderstand, loopAmount, runSpeed, endMethod):
+
+            thisFolder = os.path.dirname(os.path.abspath(
+                __file__)) + f"/logs/"
 
             if loopAmount.replace(".", "").isdigit() and runSpeed.replace(".", "").isdigit():
+                if endMethod == "Manually Close To End Replay":
+                    endMethod = "1"
+                elif endMethod == "Move Mouse to End Replay":
+                    endMethod = "2"
+
                 f = open("../vMacro/logs/replaySettings.txt", "w")
-                f.write(f"{loopAmount}\n{runSpeed}")
+                f.write(f"{loopAmount}\n{runSpeed}\n{endMethod}")
                 f.close()
             else:
                 return messagebox.showerror(
                     "Invalid Submission", "Please fill in all the required information correctly.")
 
             def checkMouse():
-                fM = open("..vMacro/logs/mouseMonitor.txt", "r")
+                my_file = os.path.join(thisFolder, "mouseMonitor.txt")
+                fM = open(my_file)
                 read = fM.read()
                 fM.close()
                 if read == "":
@@ -283,7 +299,7 @@ def startRecordingWindow():
 
         empty4 = Label(root, text="", pady=4)
         replayBtn = Button(root, text="REPLAY", padx=10,
-                           pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get(), eLoopAmount.get(), eRunSpeed.get()))
+                           pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get(), eLoopAmount.get(), eRunSpeed.get(), moveToEnd.get()))
 
         resetBtn.pack()
         resetTxt.pack()
