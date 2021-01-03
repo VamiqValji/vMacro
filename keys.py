@@ -120,7 +120,7 @@ def on_release(key):
     if key == Key.esc:
         print("\nExited vMacro.\n")
         writeFile()
-        os.startfile("../vMacro/logs/keysPressed.txt")
+        # os.startfile("../vMacro/logs/keysPressed.txt")
         clearRunningScripts()
         return False  # break out of loop
     # elif key == Key.enter:

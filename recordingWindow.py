@@ -6,13 +6,7 @@ from os.path import isfile, join
 import asyncio
 import time
 from profilesWindow import openProfilesWindow
-# from replayWindow import REPLAY
-# from mouse import startMouseRecord
-# from keys import startKBRecord
-# from keys import replayKB
-# from mouse import replayMouse
-
-# from keys import runKeys
+from replaySettingsWindow import getInfo
 
 
 def startRecordingWindow():
@@ -25,22 +19,6 @@ def startRecordingWindow():
                 os.remove("../vMacro/logs/mouseRunning.txt")
         except:
             pass
-
-    # def record():
-    #     try:
-    #         if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
-    #             os.startfile("keys.py")
-    #             # status['text'] = 'Recording'
-    #             pass
-    #         else:
-    #             pass
-    #         if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
-    #             os.startfile('mouse.py')
-    #             # status['text'] = 'Recording'
-    #         else:
-    #             pass
-    #     except:
-    #         pass
 
     def actualRecordingWindow(whatsBeingRecorded):
 
@@ -308,9 +286,22 @@ def startRecordingWindow():
         replayBtn.pack()
 
         Label(root, text="Replay Settings", pady=7).pack()
-        Label(root, text="Replays will run at their recorded settings", pady=0).pack()
-        Label(root, text="unless the following settings are changed.", pady=0).pack()
+        Label(root, text="Replays will run at their recorded settings",
+              pady=0, padx=3).pack()
+        Label(root, text="unless the following settings are changed.",
+              pady=0, padx=3).pack()
+
         empty5 = Label(root, text="", pady=5)
+        Label(root, text="", pady=1).pack()
+        if whatsBeingRecorded != "Mouse" and whatsBeingRecorded != "Unset":
+            Label(root, text="RECOMMENDED:", pady=1).pack()
+            Label(root, text="Click the button below to make sure", pady=1).pack()
+            Label(root, text="your keyboard script is exactly how", pady=1).pack()
+            Label(root, text="you want it.", pady=1).pack()
+            Button(root, text="Open Keyboard Replay Script", pady=0,
+                   padx=3, command=getInfo).pack()  # starts replaySettingsWindow
+
+            Label(root, text="", pady=1).pack()
 
         Label(root, text="Loop how many times (default -> 1):", pady=2).pack()
         eLoopAmount = Entry(root)
