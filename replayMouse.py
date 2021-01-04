@@ -8,7 +8,7 @@ import time
 import sys
 
 
-def replayMouse(timeInterv, mTime, mouseMonitorList, loopAmount, replaySpeed, endMethod):
+def replayMouse(timeInterv, mTime, mouseMonitorList, loopAmount, replaySpeed, endMethod, delay):
     print("\nReplay")
     replayTimeCounter = 0
     loop = 0
@@ -18,7 +18,13 @@ def replayMouse(timeInterv, mTime, mouseMonitorList, loopAmount, replaySpeed, en
     loopAmount = float(loopAmount)
     replaySpeed = float(replaySpeed)
     endMethod = int(endMethod)
+    delay = float(delay)
     mouse = Controller()
+
+    if delay > 0:
+        print("\nWaiting...")
+        time.sleep(delay)
+
     while loop < loopAmount:
         if replayTimeCounter <= maxTime:
             for mousePos in mouseMonitorList:
@@ -69,8 +75,13 @@ def getInfo():
     replaySpeed = replaySett[1]
     endMethod = replaySett[2]
 
+    my_file = os.path.join(thisFolder, "delay.txt")
+    f = open(my_file, "r")
+    delay = f.read()
+    f.close()
+
     replayMouse(timeInterv, mTime, mousePositionsList,
-                loopAmount, replaySpeed, endMethod)
+                loopAmount, replaySpeed, endMethod, delay)
 
 
 getInfo()

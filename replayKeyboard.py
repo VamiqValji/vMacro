@@ -47,8 +47,18 @@ def getInfo():
     replaySett = f.readlines()
     f.close()
 
+    my_file = os.path.join(thisFolder, "delay.txt")
+    f = open(my_file, "r")
+    delay = f.read()
+    f.close()
+    delay = float(delay)
+
     loopAmount = replaySett[0]
     replaySpeed = replaySett[1]
+
+    if delay > 0:
+        print("\nWaiting...")
+        time.sleep(delay)
 
     # Start Replay
     replayKB(keysPressedList, loopAmount, replaySpeed)

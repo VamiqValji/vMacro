@@ -136,13 +136,26 @@ def on_release(key):
 
 def startKBRecord():
     clearRunningScripts()
+
     print("\n\n\nHit escape to exit!\n\nStarting vMacro (Keyboard - RECORDING).\n")
 
-    f = open("../vMacro/logs/keysRunning.txt", "w")
+    thisFolder = os.path.dirname(os.path.abspath(
+        __file__)) + f"/logs/"
+
+    my_file = os.path.join(thisFolder, "keysRunning.txt")
+    f = open(my_file, "w")
     f.write("Running")
     f.close()
 
-    # start
+    my_file = os.path.join(thisFolder, "delay.txt")
+    f = open(my_file, "r")
+    delay = f.read()
+    f.close()
+
+    delay = float(delay)
+    if delay > 0:
+        print("\nWaiting...")
+        time.sleep(delay)
 
 
 startKBRecord()

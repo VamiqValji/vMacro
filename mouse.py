@@ -50,7 +50,7 @@ def clearRunningScripts():
 #                 clearRunningScripts()
 
 
-def mouseRecord(timeIntervalArg, timeArg):
+def mouseRecord(timeIntervalArg, timeArg, delay):
     global mouseMonitorList
     global recordingMouse
     global replayTimeCounter
@@ -59,7 +59,11 @@ def mouseRecord(timeIntervalArg, timeArg):
     replayTimeCounter = 0
     timeInterval = float(timeIntervalArg)
     maxTime = float(timeArg)
+    delay = float(delay)
     timeCounter = 0
+    if delay > 0:
+        print("\nWaiting...")
+        time.sleep(delay)
     while recordingMouse:
         if timeCounter < maxTime:
             timeCounter += timeInterval
@@ -79,120 +83,32 @@ def writeMouse():
 
 
 def startMouseRecord():
+
     clearRunningScripts()
     print("\n\n\nMove your mouse to exit!\n\nStarting vMacro (Mouse).\n")
 
-    f = open("../vMacro/logs/mouseRunning.txt", "w")
+    thisFolder = os.path.dirname(os.path.abspath(
+        __file__)) + f"/logs/"
+
+    my_file = os.path.join(thisFolder, "mouseRunning.txt")
+    f = open(my_file, "w")
     f.write("Running")
     f.close()
 
-    f = open("../vMacro/logs/mouseRunSettings.txt", "r")
+    my_file = os.path.join(thisFolder, "mouseRunSettings.txt")
+    f = open(my_file, "r")
     mouseSettings = f.readlines()
+    f.close()
+
+    my_file = os.path.join(thisFolder, "delay.txt")
+    f = open(my_file, "r")
+    delay = f.read()
     f.close()
 
     timeInterv = mouseSettings[0]
     time = mouseSettings[1]
 
-    mouseRecord(timeInterv, time)
+    mouseRecord(timeInterv, time, delay)
 
 
 startMouseRecord()
-
-# def on_click(x, y, button, pressed):
-#     print("test")
-#     global mouseScriptRunning
-#     if pressed:
-#         print("test")
-#         if button == Button.right:
-#             mouseScriptRunning = False
-#             replay()
-# writeMouse()
-# elif key == Key.esc:
-#     mouseScriptRunning = False
-#     replay()
-#     writeMouse()
-
-
-# def on_scroll(x, y, dx, dy):
-#     pass
-
-
-# with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:
-#     listener.join()
-
-
-# mouse = Controller()
-
-# mouseMonitorList = []
-
-# mouseScriptRunning = True
-
-# # startTime = time.time()
-
-
-# def mouseRecord():
-#     global mouseMonitorList
-#     global mouseScriptRunning
-#     # global startTime
-#     while mouseScriptRunning:
-#         print(mouse.position)
-#         time.sleep(0.2)
-#         mouseMonitorList.append(mouse.position)
-
-
-# def writeMouse():
-#     f = open("mouseMonitor.txt", "w")
-#     f.write(str(mouseMonitorList))
-#     f.close()
-#     # os.startfile("mouseMonitor.txt")
-
-
-# # def on_press(key):
-# #     global mouseScriptRunning
-# #     if key == Key.enter:
-# #         mouseScriptRunning = False
-# #         replay()
-# #         writeMouse()
-# #     elif key == Key.esc:
-# #         mouseScriptRunning = False
-# #         replay()
-# #         writeMouse()
-
-
-# def replay():
-#     print("\nREPLAY")
-#     for mousePos in mouseMonitorList:
-#         mouse.position = mousePos
-#         time.sleep(0.2)
-
-
-# # def on_release():
-# #     pass
-
-
-# def on_move(x, y):
-#     pass
-
-
-# def on_click(x, y, button, pressed):
-#     global mouseScriptRunning
-#     if button == Button.right:
-#         mouseScriptRunning = False
-#         replay()
-#         # writeMouse()
-#     # elif key == Key.esc:
-#     #     mouseScriptRunning = False
-#     #     replay()
-#     #     writeMouse()
-
-
-# def on_scroll(x, y, dx, dy):
-#     pass
-
-
-# mouseRecord()
-
-# with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as mouseListener:
-#     mouseListener.join()
-# # with Listener(on_press=on_press, on_release=on_release) as listener:
-# #     listener.join()  # loop until broken out

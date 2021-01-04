@@ -24,7 +24,9 @@ def startRecordingWindow():
 
         whatsBeingRecorded = whatsBeingRecorded.replace("Record ", "")
 
-        def RECORD(timeInterv, time, kbUnderstand):
+        def RECORD(timeInterv, time, kbUnderstand, RRdelay):
+
+            resetScripts()
 
             def startMouseRecord(timeInter, time):
 
@@ -43,56 +45,63 @@ def startRecordingWindow():
             print(time)
             print(kbUnderstand)
 
-            if "Unset" in whatsBeingRecorded:
-                messagebox.showerror(
-                    "Invalid Submission", "Please fill in all the required information correctly.")
-            elif whatsBeingRecorded == "Mouse":
-                try:
-                    if timeInterv.replace(".", "").isdigit() and time.replace(".", "").isdigit():
-                        try:
-                            timeInterv = int(timeInterv)
-                            time = int(time)
-                        except:
-                            timeInterv = float(timeInterv)
-                            time = float(time)
+            if RRdelay.replace(".", "").isdigit():
+                if "Unset" in whatsBeingRecorded:
+                    messagebox.showerror(
+                        "Invalid Submission", "Please fill in all the required information correctly.")
+                elif whatsBeingRecorded == "Mouse":
+                    try:
+                        if timeInterv.replace(".", "").isdigit() and time.replace(".", "").isdigit():
+                            try:
+                                timeInterv = int(timeInterv)
+                                time = int(time)
+                            except:
+                                timeInterv = float(timeInterv)
+                                time = float(time)
 
-                        if timeInterv >= 0.05:
-                            if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
-                                startMouseRecord(timeInterv, time)
-                                # os.startfile('mouse.py')
-                                # status['text'] = 'Recording'
+                            if timeInterv >= 0.05:
+                                if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
+                                    startMouseRecord(timeInterv, time)
+                                    # os.startfile('mouse.py')
+                                    # status['text'] = 'Recording'
+                            else:
+                                return messagebox.showerror(
+                                    "Incorrect Submission.", "Please make sure the inputted time interval is equal to or atleast 0.05.")
                         else:
-                            return messagebox.showerror(
-                                "Incorrect Submission.", "Please make sure the inputted time interval is equal to or atleast 0.05.")
-                    else:
-                        messagebox.showerror(
-                            "Incorrect Submission.", "Please select valid inputs (numbers).")
-                except:
-                    pass
-            elif whatsBeingRecorded == "Keyboard":
-                try:
-                    if kbUnderstand != "Unset":  # User understands how to stop keyboard recording
+                            messagebox.showerror(
+                                "Incorrect Submission.", "Please select valid inputs (numbers).")
+                    except:
+                        pass
+                elif whatsBeingRecorded == "Keyboard":
+                    try:
+                        if kbUnderstand != "Unset":  # User understands how to stop keyboard recording
+                            if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
+                                os.startfile("keys.py")
+                                # startKBRecord()
+                                # status['text'] = 'Recording'
+                                pass
+                            else:
+                                pass
+                        else:
+                            messagebox.showerror(
+                                "Incorrect Submission.", "Please fill in all forms correctly.")
+                    except:
+                        pass
+                else:  # KB & M
+                    if kbUnderstand != "Unset" and timeInterv.replace(".", "").isdigit() and time.replace(".", "").isdigit():
+                        if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
+                            startMouseRecord(timeInterv, time)
                         if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
                             os.startfile("keys.py")
-                            # startKBRecord()
-                            # status['text'] = 'Recording'
-                            pass
-                        else:
-                            pass
                     else:
                         messagebox.showerror(
                             "Incorrect Submission.", "Please fill in all forms correctly.")
-                except:
-                    pass
-            else:  # KB & M
-                if kbUnderstand != "Unset" and timeInterv.replace(".", "").isdigit() and time.replace(".", "").isdigit():
-                    if os.path.exists("../vMacro/logs/mouseRunning.txt") == False:
-                        startMouseRecord(timeInterv, time)
-                    if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
-                        os.startfile("keys.py")
-                else:
-                    messagebox.showerror(
-                        "Incorrect Submission.", "Please fill in all forms correctly.")
+                fR = open("../vMacro/logs/delay.txt", "w")
+                fR.write(RRdelay)
+                fR.close()
+            else:
+                messagebox.showerror(
+                    "Incorrect Submission.", "Your inputted recording and replay delay must be a valid number.")
 
         root = Tk()
         root.title("vMacro")
@@ -103,10 +112,13 @@ def startRecordingWindow():
 
         global eTimeInterval
         global eTime
+        global eRecordingAndReplayDelay
         eTimeInterval = Entry(root)
         eTime = Entry(root)
+        eRecordingAndReplayDelay = Entry(root)
         eTimeInterval.insert(0, '0.1')
         eTime.insert(0, '1')
+        eRecordingAndReplayDelay.insert(0, '0')
 
         global moveToEnd
         moveToEnd = StringVar()
@@ -114,7 +126,7 @@ def startRecordingWindow():
 
         def renderRecordBtn():
             Button(root, text="Start Recording",
-                   padx=10, pady=10, command=lambda: RECORD(eTimeInterval.get(), eTime.get(), iUnderstandDropDown.get())).pack()
+                   padx=10, pady=10, command=lambda: RECORD(eTimeInterval.get(), eTime.get(), iUnderstandDropDown.get(), eRecordingAndReplayDelay.get())).pack()
 
         def renderMouseSettings():
 
@@ -129,12 +141,17 @@ def startRecordingWindow():
                 root, text="the lower the number, the smoother the tracking.", pady="0", padx="5")
             intervalTxt3 = Label(
                 root, text="Enter the amount of time the mouse will be tracked (seconds)", pady="8", padx="5")
+            # intervalTxt4 = Label(
+            #     root, text="Enter the amount of time the recording and replay will start after (delay).", pady="8", padx="5")
             instructionsTxtMouse.pack()
             intervalTxt1.pack()
             intervalTxt2.pack()
             eTimeInterval.pack()
             intervalTxt3.pack()
             eTime.pack()
+            # intervalTxt4.pack()
+            # eRecordingAndReplayDelay.pack()
+            # Label(root, text="", pady=3).pack()
             OptionMenu(
                 root, moveToEnd, *["Manually Close To End Replay", "Move Mouse to End Replay"]).pack()
             Label(root, text="", pady=3).pack()
@@ -267,10 +284,16 @@ def startRecordingWindow():
         empty3 = Label(root, text="", pady=6)
         empty3.pack()
 
-        resetBtn = Button(root, text="Reset", padx=10,
-                          pady=5, command=resetScripts)
+        intervalTxt4 = Label(
+            root, text="Enter the amount of time the recording and replay will start after (delay).", pady="8", padx="5")
+        intervalTxt4.pack()
+        eRecordingAndReplayDelay.pack()
+        Label(root, text="", pady=3).pack()
 
-        resetTxt = Label(root, text="Not working? Click the reset button.")
+        # resetBtn = Button(root, text="Reset", padx=10,
+        #                   pady=5, command=resetScripts)
+
+        # resetTxt = Label(root, text="Not working? Click the reset button.")
 
         global eLoopAmount
         global eRunSpeed
@@ -279,8 +302,8 @@ def startRecordingWindow():
         replayBtn = Button(root, text="REPLAY", padx=10,
                            pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get(), eLoopAmount.get(), eRunSpeed.get(), moveToEnd.get()))
 
-        resetBtn.pack()
-        resetTxt.pack()
+        # resetBtn.pack()
+        # resetTxt.pack()
 
         empty4.pack()
         replayBtn.pack()
