@@ -5,6 +5,7 @@ from os import listdir
 from os.path import isfile, join
 import asyncio
 import time
+from defaultSettings import importDefaultSettings
 
 
 def getFilePath(dir, file):
@@ -17,6 +18,7 @@ def openReplaySettingsWindow(keysPressedScript):
 
     def update():
         update = Tk()
+        importDefaultSettings(update)
         # update.title("vMacro")
 
         messagebox.showinfo(
@@ -42,7 +44,7 @@ def openReplaySettingsWindow(keysPressedScript):
             root, text=t, pady=yPadding).pack()
 
     root = Tk()
-    root.title("vMacro")
+    importDefaultSettings(root)
 
     Label(
         root, text="Keyboard Script", pady="10", bd=4).pack()

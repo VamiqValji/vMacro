@@ -137,7 +137,8 @@ def on_release(key):
 def startKBRecord():
     clearRunningScripts()
 
-    print("\n\n\nHit escape to exit!\n\nStarting vMacro (Keyboard - RECORDING).\n")
+    print(
+        "\n\n\nHit escape to exit!\n\nStarting vMacro (Keyboard - RECORDING [EXPERIMENTAL]).\n")
 
     thisFolder = os.path.dirname(os.path.abspath(
         __file__)) + f"/logs/"

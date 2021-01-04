@@ -2,6 +2,7 @@ from tkinter import *
 import os
 from os import listdir
 from os.path import isfile, join
+from defaultSettings import importDefaultSettings
 
 
 def openSettingsWindow():
@@ -21,6 +22,7 @@ def openSettingsWindow():
         f.close()
 
     root = Tk()
+    importDefaultSettings(root)
 
     Label(root, text="Settings").pack()
 
@@ -38,4 +40,4 @@ def openSettingsWindow():
     mainloop()
 
 
-openSettingsWindow()
+# openSettingsWindow()

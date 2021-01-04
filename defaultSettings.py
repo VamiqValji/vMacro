@@ -4,16 +4,27 @@ from os import listdir
 from os.path import isfile, join
 
 
-def importDefaultSettings():
+def importDefaultSettings(root):
     thisFolder = os.path.dirname(os.path.abspath(
-        __file__)) + f"/img/"
-    img = os.path.join(thisFolder, "vMacroLogo.ico")
+        __file__))
 
-    root = Tk()
     root.title("vMacro")
-    root.iconbitmap(img)
+    # root.iconbitmap(os.path.join(thisFolder, "/img/vMacroLogo.ico"))
 
-    root.configure(bg="black")
+    f = open(os.path.join(thisFolder, "logs/settings.txt"), "r")
+    settings = f.readlines()
+    f.close()
+
+    bgColor = ""
+
+    theme = settings[0]
+
+    if theme == "Default":
+        bgColor = ""
+    if theme == "Dark":
+        bgColor = "black"
+
+    root.configure(bg=bgColor)
 
 # Label(text="Default Window Settings").pack()
 

@@ -5,6 +5,7 @@ from createProfileWindow import listOfLetters
 import os
 from os import listdir
 from os.path import isfile, join
+from defaultSettings import importDefaultSettings
 # f = open("keysPressed_prev_log.txt", "r")
 # prevLog = f.read()
 # print(prevLog)
@@ -66,7 +67,7 @@ def openProfilesWindow():
             pReplacement = (profileInfo[2]).replace("\n", "")
 
             prof = Toplevel()
-            prof.title("vMacro")
+            importDefaultSettings(prof)
             # Input Field 1
             inpField1Txt = Label(
                 prof, text=f"Edit Profile {str(profileNum)} ({pName})", pady="5", padx="5")

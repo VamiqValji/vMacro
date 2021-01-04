@@ -7,6 +7,7 @@ import asyncio
 import time
 from profilesWindow import openProfilesWindow
 from replaySettingsWindow import getInfo
+from defaultSettings import importDefaultSettings
 
 
 def startRecordingWindow():
@@ -104,7 +105,7 @@ def startRecordingWindow():
                     "Incorrect Submission.", "Your inputted recording and replay delay must be a valid number.")
 
         root = Tk()
-        root.title("vMacro")
+        importDefaultSettings(root)
 
         title = Label(
             root, text=f"Record: {whatsBeingRecorded}", pady="10", padx="5")
@@ -343,7 +344,7 @@ def startRecordingWindow():
         mainloop()
 
     root = Tk()
-    root.title("vMacro")
+    importDefaultSettings(root)
 
     title = Label(
         root, text="Recordings", pady="10", padx="5")
@@ -356,15 +357,10 @@ def startRecordingWindow():
     dropDown = StringVar()
     dropDown.set("Unset")
     inpFieldDrop = OptionMenu(
-        root, dropDown, *["Record Mouse", "Record Keyboard", "Record Mouse & KB"])
+        root, dropDown, *["Record Mouse", "Record Keyboard [EXPERIMENTAL]", "Record Mouse & KB [EXPERIMENTAL]"])
     openRecordingBtn = Button(
         root, text="Open Recording Window", padx=10, pady=5, command=lambda: actualRecordingWindow(dropDown.get()))
 
-    # resetTxt = Label(root, text="Not working? Click the reset button.")
-    # mouseRunningLabel = Label(
-    #     root, text="Mouse vMacro script is already running.")
-    # keysRunningLabel = Label(
-    #     root, text="Keyboard vMacro script is already running.")
     empty = Label(
         root, text="")
 
@@ -372,10 +368,6 @@ def startRecordingWindow():
     inpFieldDrop.grid(row=2, column=0, padx=5, pady=5)
     openRecordingBtn.grid(row=3, column=0, padx=5, pady=5)
     empty.grid(row=4, column=0, padx=5, pady=1)
-    # resetBtn.grid(row=5, column=0, padx=5, pady=1)
-
-    # resetTxt.grid(row=6, column=0, padx=5, pady=5)
-    # status.grid(row=100, column=0, sticky=W+E)
 
     # root.mainloop()
 

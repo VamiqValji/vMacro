@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from defaultSettings import importDefaultSettings
 
 # f = open("keysPressed_prev_log.txt", "r")
 # prevLog = f.read()
@@ -37,6 +38,7 @@ def submitProfile(profileName, replaced, replacement, profileLoc):
 
 def createProfile():
     prof = Toplevel()
+    importDefaultSettings(prof)
     createProfTitle = Label(
         prof, text="Profiles", pady="10", padx="5")
     createProfTitle.pack()

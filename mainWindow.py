@@ -7,12 +7,11 @@ import time
 from macroWindow import startMacroWindow
 from recordingWindow import startRecordingWindow
 from settingsWindow import openSettingsWindow
+from defaultSettings import importDefaultSettings
 from PIL import ImageTk, Image
 
 root = Tk()
-root.title("vMacro")
-# root.iconbitmap("image.png")
-# root.geometry("350x200")
+importDefaultSettings(root)
 
 
 def startMacro():

@@ -8,6 +8,7 @@ import time
 from createProfileWindow import listOfProfiles
 from profilesWindow import openProfilesWindow
 from runKeysMacro import runKeysMacro
+from defaultSettings import importDefaultSettings
 
 activeProfiles = ['Profile 1']
 
@@ -54,7 +55,7 @@ def startMacroWindow():
 
     checkProfiles()
     prof = Toplevel()
-    prof.title("vMacro")
+    importDefaultSettings(prof)
     profsTitle = Label(
         prof, text="Macros", pady="10", padx="5")
     profsTitle.pack()
