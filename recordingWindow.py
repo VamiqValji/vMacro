@@ -380,6 +380,3 @@ def startRecordingWindow():
     # root.mainloop()
 
     mainloop()
-
-
-startRecordingWindow()

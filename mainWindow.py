@@ -6,6 +6,8 @@ import asyncio
 import time
 from macroWindow import startMacroWindow
 from recordingWindow import startRecordingWindow
+from settingsWindow import openSettingsWindow
+from PIL import ImageTk, Image
 
 root = Tk()
 root.title("vMacro")
@@ -33,5 +35,24 @@ title.pack()
 subtitle.pack()
 macros.pack()
 recordings.pack()
+
+Label(text="", pady=1).pack()
+# Button(root, text="Settings",
+#        padx=10, pady=5, command=openSettingsWindow).pack()
+
+# Image
+thisFolder = os.path.dirname(os.path.abspath(
+    __file__)) + f"/img/"
+
+gearIcon = ImageTk.PhotoImage(Image.open(
+    os.path.join(thisFolder, "gearsIconx32.png")))
+
+Button(root, image=gearIcon,
+       padx=10, pady=5, command=openSettingsWindow).pack()
+
+#
+
+Label(text="", pady=0.5).pack()
+
 
 mainloop()
