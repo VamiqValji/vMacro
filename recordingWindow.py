@@ -117,9 +117,9 @@ def startRecordingWindow():
         global eTimeInterval
         global eTime
         global eRecordingAndReplayDelay
-        eTimeInterval = Entry(root)
-        eTime = Entry(root)
-        eRecordingAndReplayDelay = Entry(root)
+        eTimeInterval = Entry(root, bg=bgColor, fg=textColor)
+        eTime = Entry(root, bg=bgColor, fg=textColor)
+        eRecordingAndReplayDelay = Entry(root, bg=bgColor, fg=textColor)
         eTimeInterval.insert(0, '0.1')
         eTime.insert(0, '1')
         eRecordingAndReplayDelay.insert(0, '0')
@@ -337,7 +337,7 @@ def startRecordingWindow():
 
         Label(root, text="Loop how many times (default -> 1):",
               pady=2, bg=bgColor, fg=textColor).pack()
-        eLoopAmount = Entry(root)
+        eLoopAmount = Entry(root, bg=bgColor, fg=textColor)
         eLoopAmount.insert(0, '1')
         eLoopAmount.pack()
 
@@ -345,7 +345,7 @@ def startRecordingWindow():
 
         Label(root, text="Playback speed (default -> 1):",
               pady=2, bg=bgColor, fg=textColor).pack()
-        eRunSpeed = Entry(root)
+        eRunSpeed = Entry(root, bg=bgColor, fg=textColor)
         eRunSpeed.insert(0, '1')
         eRunSpeed.pack()
 

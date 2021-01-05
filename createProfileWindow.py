@@ -50,7 +50,7 @@ def createProfile():
         prof, text="Profile Name", pady="5", padx="5", bg=bgColor, fg=textColor)
     inpField1Txt.pack()
     inpField1Entry = Entry(
-        prof, width="10")
+        prof, width="10", bg=bgColor, fg=textColor)
     inpField1Entry.pack()
     # Input Field 2
     inpField2Txt = Label(
@@ -95,3 +95,6 @@ def createProfile():
         prof, text="Submit", pady="2", command=lambda: submitProfile(inpField1Entry.get(), dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()), bg=bgColor, fg=textColor)
     submitBtn.pack()
     mainloop()
+
+
+# createProfile()

@@ -64,7 +64,6 @@ def openProfilesWindow():
             bgColor = getColor("bg")
             textColor = getColor("text")
             importDefaultSettings(prof)
-            prof.config(bg="black")
             # Input Field 1
             inpField1Txt = Label(
                 prof, text=f"Edit Profile {str(profileNum)} ({pName})", pady="5", padx="5", bg=bgColor, fg=textColor)

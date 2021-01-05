@@ -25,26 +25,26 @@ def openSettingsWindow():
     importDefaultSettings(root)
 
     Label(root, text="Settings", bg=bgColor, fg=textColor).pack()
-    Label(root, text="", pady=1, bg=bgColor, fg=textColor).pack()
+    # Label(root, text="", pady=1, bg=bgColor, fg=textColor).pack()
 
     Label(root, text="Theme", bg=bgColor, fg=textColor).pack()
     themeDropDown = StringVar()
     themeDropDown.set("Default")
 
-    empty()
+    # empty()
     OptionMenu(
         root, themeDropDown, *["Default", "Dark", "Black", "Bright"]).pack()
-    empty()
+    # empty()
     Button(
         root, text="Save Changes", padx=10, pady=5, command=lambda: saveChanges(themeDropDown.get()), bg=bgColor, fg=textColor).pack()
-    empty()
+    # empty()
     updateTextChanges1 = Label(
         root, text="To see your changes in action,", bg=bgColor, fg=textColor, padx=5)
     updateTextChanges2 = Label(
         root, text="you must restart vMacro.", bg=bgColor, fg=textColor, padx=5)
     updateTextChanges1.pack()
     updateTextChanges2.pack()
-    empty(0.1)
+    # empty(0.1)
 
     mainloop()
 
