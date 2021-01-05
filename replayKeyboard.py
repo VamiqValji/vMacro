@@ -64,7 +64,7 @@ def getInfo():
     replayKB(keysPressedList, loopAmount, replaySpeed)
 
 
-getInfo()
+# getInfo()
 
 # with Listener() as listener:
 #     listener.join()  # loop until broken out

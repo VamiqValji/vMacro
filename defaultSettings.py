@@ -27,9 +27,15 @@ def returnColors():
     if theme == "Default":
         bgColor = "#ecf0f1"
         textColor = "black"
-    if theme == "Dark":
+    elif theme == "Dark":
+        bgColor = "#2c3e50"
+        textColor = "#ecf0f1"
+    elif theme == "Black":
         bgColor = "black"
         textColor = "white"
+    if theme == "Bright":
+        bgColor = "#fd79a8"
+        textColor = "#2d3436"
     return[bgColor, textColor]
 
 

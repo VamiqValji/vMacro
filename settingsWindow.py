@@ -16,10 +16,7 @@ def openSettingsWindow():
 
     def saveChanges(theme):
         f = open(os.path.join(logsFolder, "settings.txt"), "w")
-        if theme == "Default":
-            f.write("Default")
-        elif theme == "Dark":
-            f.write("Dark")
+        f.write(theme)
         f.close()
 
     root = Tk()
@@ -28,13 +25,15 @@ def openSettingsWindow():
     importDefaultSettings(root)
 
     Label(root, text="Settings", bg=bgColor, fg=textColor).pack()
+    Label(root, text="", pady=1, bg=bgColor, fg=textColor).pack()
 
+    Label(root, text="Theme", bg=bgColor, fg=textColor).pack()
     themeDropDown = StringVar()
     themeDropDown.set("Default")
 
     empty()
     OptionMenu(
-        root, themeDropDown, *["Default", "Dark"]).pack()
+        root, themeDropDown, *["Default", "Dark", "Black", "Bright"]).pack()
     empty()
     Button(
         root, text="Save Changes", padx=10, pady=5, command=lambda: saveChanges(themeDropDown.get()), bg=bgColor, fg=textColor).pack()
@@ -42,7 +41,7 @@ def openSettingsWindow():
     updateTextChanges1 = Label(
         root, text="To see your changes in action,", bg=bgColor, fg=textColor, padx=5)
     updateTextChanges2 = Label(
-        root, text="you may need to re-open the window.", bg=bgColor, fg=textColor, padx=5)
+        root, text="you must restart vMacro.", bg=bgColor, fg=textColor, padx=5)
     updateTextChanges1.pack()
     updateTextChanges2.pack()
     empty(0.1)
@@ -50,4 +49,4 @@ def openSettingsWindow():
     mainloop()
 
 
-openSettingsWindow()
+# openSettingsWindow()

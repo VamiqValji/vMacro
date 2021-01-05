@@ -100,4 +100,4 @@ def getInfo():
     openReplaySettingsWindow(keysPressedScript)
 
 
-getInfo()
+# getInfo()

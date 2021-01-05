@@ -32,17 +32,16 @@ subtitle = Label(
 
 macros = Button(root, text="Macros", padx=10, pady=5,
                 command=startMacro, bg=bgColor, fg=textColor)
-recordings = Button(root, text="Recordings (Experimental)",
+recordings = Button(root, text="Recordings",
                     padx=10, pady=5, command=startRecording, bg=bgColor, fg=textColor)
 
 title.pack()
 subtitle.pack()
+Label(text="", pady=1, bg=bgColor, fg=textColor).pack()
 macros.pack()
 recordings.pack()
 
 Label(text="", pady=1, bg=bgColor, fg=textColor).pack()
-# Button(root, text="Settings",
-#        padx=10, pady=5, command=openSettingsWindow).pack()
 
 # Image
 thisFolder = os.path.dirname(os.path.abspath(
@@ -54,9 +53,10 @@ gearIcon = ImageTk.PhotoImage(Image.open(
 Button(root, image=gearIcon,
        padx=10, pady=5, command=openSettingsWindow, bg=bgColor, fg=textColor).pack()
 
-#
-
 Label(text="", pady=0.5, bg=bgColor, fg=textColor).pack()
+
+Label(text="Version:", pady=0.5, bg=bgColor,
+      fg=textColor).pack()
 
 
 mainloop()
