@@ -6,6 +6,7 @@ from os.path import isfile, join
 import asyncio
 import time
 from defaultSettings import importDefaultSettings
+from defaultSettings import getColor
 
 
 def getFilePath(dir, file):
@@ -18,8 +19,9 @@ def openReplaySettingsWindow(keysPressedScript):
 
     def update():
         update = Tk()
+        # bgColor = getColor("bg")
+        # textColor = getColor("text")
         importDefaultSettings(update)
-        # update.title("vMacro")
 
         messagebox.showinfo(
             "Changes Saved", "The replay keyboard script was overwrited. If your script doesn't work in replay mode, please either try again at making your own script or just use the record feature.")
@@ -33,24 +35,22 @@ def openReplaySettingsWindow(keysPressedScript):
         f.close()
         update()
 
-    # def output():
-    #     textInput = scriptEditorInput.get("1.0", 'end-1c')
-    #     keysPressedList = textInput.split(",")
-
     def text(t, yPadding):
         t = str(t)
         yPadding = int(yPadding)
         return Label(
-            root, text=t, pady=yPadding).pack()
+            root, text=t, pady=yPadding, bg=bgColor, fg=textColor).pack()
 
     root = Tk()
+    bgColor = getColor("bg")
+    textColor = getColor("text")
     importDefaultSettings(root)
 
     Label(
-        root, text="Keyboard Script", pady="10", bd=4).pack()
+        root, text="Keyboard Script", pady="10", bd=4, bg=bgColor, fg=textColor).pack()
 
     Label(
-        root, text="", pady="5", bd=4).pack()
+        root, text="", pady="5", bd=4, bg=bgColor, fg=textColor).pack()
 
     text("Creating a keyboard script is more simple than you think! Write the character you want to be pressed,", 0)
     text("then write the duration you want it to be pressed down for (in seconds). Every letter MUST be", 0)
@@ -67,20 +67,20 @@ def openReplaySettingsWindow(keysPressedScript):
     text("at making your own script or just use the record feature.", 0)
 
     Label(
-        root, text="", pady="5", bd=4).pack()
+        root, text="", pady="5", bd=4, bg=bgColor, fg=textColor).pack()
 
     global scriptEditorInput
     scriptEditorInput = Text(
-        root, width=100, height=10)
+        root, width=100, height=10, bg=bgColor, fg=textColor)
     scriptEditorInput.insert(INSERT, keysPressedScript)
     scriptEditorInput.pack()
 
     # text("Output:", 6)
     text("", 3)
     Button(root, text="Save Changes", pady=5,
-           padx=5, command=saveChanges).pack()
+           padx=5, command=saveChanges, bg=bgColor, fg=textColor).pack()
     global changesSavedLabel
-    changesSavedLabel = Label(root, text="", pady=1)
+    changesSavedLabel = Label(root, text="", pady=1, bg=bgColor, fg=textColor)
     text("", 4)
     # Button(root, text="View Output", pady=5, padx=5, command=output).pack()
     # text("", 2)
@@ -100,4 +100,4 @@ def getInfo():
     openReplaySettingsWindow(keysPressedScript)
 
 
-# getInfo()
+getInfo()

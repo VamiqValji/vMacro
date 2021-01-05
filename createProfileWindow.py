@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from defaultSettings import importDefaultSettings
+from defaultSettings import getColor
 
 # f = open("keysPressed_prev_log.txt", "r")
 # prevLog = f.read()
@@ -38,24 +39,23 @@ def submitProfile(profileName, replaced, replacement, profileLoc):
 
 def createProfile():
     prof = Toplevel()
+    bgColor = getColor("bg")
+    textColor = getColor("text")
     importDefaultSettings(prof)
     createProfTitle = Label(
-        prof, text="Profiles", pady="10", padx="5")
+        prof, text="Profiles", pady="10", padx="5", bg=bgColor, fg=textColor)
     createProfTitle.pack()
     # Input Field 1
     inpField1Txt = Label(
-        prof, text="Profile Name", pady="5", padx="5")
+        prof, text="Profile Name", pady="5", padx="5", bg=bgColor, fg=textColor)
     inpField1Txt.pack()
     inpField1Entry = Entry(
         prof, width="10")
     inpField1Entry.pack()
     # Input Field 2
     inpField2Txt = Label(
-        prof, text="What key will be replaced?", pady="5", padx="5")
+        prof, text="What key will be replaced?", pady="5", padx="5", bg=bgColor, fg=textColor)
     inpField2Txt.pack()
-    # inpField2Entry = Entry(
-    #     prof, width="10")
-    # inpField2Entry.pack()
     dropDownReplaced = StringVar()
     dropDownReplaced.set("Unset")
     inpField2Drop = OptionMenu(
@@ -63,7 +63,7 @@ def createProfile():
     inpField2Drop.pack()
     # Input Field 3
     inpField3Txt = Label(
-        prof, text="What key would you like to map the replacement to?", pady="5", padx="5")
+        prof, text="What key would you like to map the replacement to?", pady="5", padx="5", bg=bgColor, fg=textColor)
     inpField3Txt.pack()
     dropDownReplacement = StringVar()
     dropDownReplacement.set("Unset")
@@ -72,7 +72,7 @@ def createProfile():
     inpField3Drop.pack()
     # Input Field 4
     inpField4Txt = Label(
-        prof, text="Under which profile would you like to write / overwrite these settings to?", pady="5", padx="5")
+        prof, text="Under which profile would you like to write / overwrite these settings to?", pady="5", padx="5", bg=bgColor, fg=textColor)
     inpField4Txt.pack()
     dropWhichProfile = StringVar()
     dropWhichProfile.set("Unset")
@@ -82,21 +82,16 @@ def createProfile():
     # Example Description
     # Example Description
     desc1Txt = Label(
-        prof, text="Example: If 'w' was being replaced with 's',", pady="0", padx="8")
+        prof, text="Example: If 'w' was being replaced with 's',", pady="0", padx="8", bg=bgColor, fg=textColor)
     desc1Txt.pack()
     desc2Txt = Label(
-        prof, text="when 's' is pressed the 'w' key will be stimulated (as if it", pady="0", padx="8")
+        prof, text="when 's' is pressed the 'w' key will be stimulated (as if it", pady="0", padx="8", bg=bgColor, fg=textColor)
     desc2Txt.pack()
     desc3Txt = Label(
-        prof, text="was being pressed by you) by the computer as well.", pady="0", padx="8")
+        prof, text="was being pressed by you) by the computer as well.", pady="0", padx="8", bg=bgColor, fg=textColor)
     desc3Txt.pack()
-    # Margin
-    # spaceMargin = Label(
-    #     prof, text="", pady="2", padx="0")
-    # spaceMargin.pack()
-    #
-    # Submit
+
     submitBtn = Button(
-        prof, text="Submit", pady="2", command=lambda: submitProfile(inpField1Entry.get(), dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()))
+        prof, text="Submit", pady="2", command=lambda: submitProfile(inpField1Entry.get(), dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()), bg=bgColor, fg=textColor)
     submitBtn.pack()
     mainloop()

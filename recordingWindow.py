@@ -8,6 +8,7 @@ import time
 from profilesWindow import openProfilesWindow
 from replaySettingsWindow import getInfo
 from defaultSettings import importDefaultSettings
+from defaultSettings import getColor
 
 
 def startRecordingWindow():
@@ -105,10 +106,12 @@ def startRecordingWindow():
                     "Incorrect Submission.", "Your inputted recording and replay delay must be a valid number.")
 
         root = Tk()
+        bgColor = getColor("bg")
+        textColor = getColor("text")
         importDefaultSettings(root)
 
         title = Label(
-            root, text=f"Record: {whatsBeingRecorded}", pady="10", padx="5")
+            root, text=f"Record: {whatsBeingRecorded}", pady="10", padx="5", bg=bgColor, fg=textColor)
         title.pack()
 
         global eTimeInterval
@@ -127,21 +130,21 @@ def startRecordingWindow():
 
         def renderRecordBtn():
             Button(root, text="Start Recording",
-                   padx=10, pady=10, command=lambda: RECORD(eTimeInterval.get(), eTime.get(), iUnderstandDropDown.get(), eRecordingAndReplayDelay.get())).pack()
+                   padx=10, pady=10, command=lambda: RECORD(eTimeInterval.get(), eTime.get(), iUnderstandDropDown.get(), eRecordingAndReplayDelay.get()), bg=bgColor, fg=textColor).pack()
 
         def renderMouseSettings():
 
             mouseSettingsTitle = Label(
-                root, text="Mouse Settings", pady="12", padx="5")
+                root, text="Mouse Settings", pady="12", padx="5", bg=bgColor, fg=textColor)
             mouseSettingsTitle.pack()
             instructionsTxtMouse = Label(
-                root, text="To end the mouse recording once its started, move your mouse.", pady="8", padx="5")
+                root, text="To end the mouse recording once its started, move your mouse.", pady="8", padx="5", bg=bgColor, fg=textColor)
             intervalTxt1 = Label(
-                root, text="Enter a time interval for mouse tracking (seconds);", pady="0", padx="5")
+                root, text="Enter a time interval for mouse tracking (seconds);", pady="0", padx="5", bg=bgColor, fg=textColor)
             intervalTxt2 = Label(
-                root, text="the lower the number, the smoother the tracking.", pady="0", padx="5")
+                root, text="the lower the number, the smoother the tracking.", pady="0", padx="5", bg=bgColor, fg=textColor)
             intervalTxt3 = Label(
-                root, text="Enter the amount of time the mouse will be tracked (seconds)", pady="8", padx="5")
+                root, text="Enter the amount of time the mouse will be tracked (seconds)", pady="8", padx="5", bg=bgColor, fg=textColor)
             # intervalTxt4 = Label(
             #     root, text="Enter the amount of time the recording and replay will start after (delay).", pady="8", padx="5")
             instructionsTxtMouse.pack()
@@ -155,7 +158,7 @@ def startRecordingWindow():
             # Label(root, text="", pady=3).pack()
             OptionMenu(
                 root, moveToEnd, *["Manually Close To End Replay", "Move Mouse to End Replay"]).pack()
-            Label(root, text="", pady=3).pack()
+            Label(root, text="", pady=3, bg=bgColor, fg=textColor).pack()
             if whatsBeingRecorded == "Mouse":
                 renderRecordBtn()
 
@@ -165,11 +168,11 @@ def startRecordingWindow():
 
         def renderKBSettings():
             KBSettingsTitle = Label(
-                root, text="Keyboard Settings", pady="12", padx="5")
+                root, text="Keyboard Settings", pady="12", padx="5", bg=bgColor, fg=textColor)
             instructionsTxtKB1 = Label(
-                root, text="To end the keyboard recording", pady="4", padx="5")
+                root, text="To end the keyboard recording", pady="4", padx="5", bg=bgColor, fg=textColor)
             instructionsTxtKB2 = Label(
-                root, text="once its started, hit escape.", pady="0", padx="5")
+                root, text="once its started, hit escape.", pady="0", padx="5", bg=bgColor, fg=textColor)
 
             inpFieldDrop = OptionMenu(
                 root, iUnderstandDropDown, *["I Understand."])
@@ -282,14 +285,14 @@ def startRecordingWindow():
                     startReplay(timeInterv, time,
                                 whatsBeingRecorded, kbUnderstand)
 
-        empty3 = Label(root, text="", pady=6)
+        empty3 = Label(root, text="", pady=6, bg=bgColor, fg=textColor)
         empty3.pack()
 
         intervalTxt4 = Label(
-            root, text="Enter the amount of time the recording and replay will start after (delay).", pady="8", padx="5")
+            root, text="Enter the amount of time the recording and replay will start after (delay).", pady="8", padx="5", bg=bgColor, fg=textColor)
         intervalTxt4.pack()
         eRecordingAndReplayDelay.pack()
-        Label(root, text="", pady=3).pack()
+        Label(root, text="", pady=3, bg=bgColor, fg=textColor).pack()
 
         # resetBtn = Button(root, text="Reset", padx=10,
         #                   pady=5, command=resetScripts)
@@ -299,9 +302,9 @@ def startRecordingWindow():
         global eLoopAmount
         global eRunSpeed
 
-        empty4 = Label(root, text="", pady=4)
+        empty4 = Label(root, text="", pady=4, bg=bgColor, fg=textColor)
         replayBtn = Button(root, text="REPLAY", padx=10,
-                           pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get(), eLoopAmount.get(), eRunSpeed.get(), moveToEnd.get()))
+                           pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get(), eLoopAmount.get(), eRunSpeed.get(), moveToEnd.get()), bg=bgColor, fg=textColor)
 
         # resetBtn.pack()
         # resetTxt.pack()
@@ -309,32 +312,39 @@ def startRecordingWindow():
         empty4.pack()
         replayBtn.pack()
 
-        Label(root, text="Replay Settings", pady=7).pack()
+        Label(root, text="Replay Settings", pady=7,
+              bg=bgColor, fg=textColor).pack()
         Label(root, text="Replays will run at their recorded settings",
-              pady=0, padx=3).pack()
+              pady=0, padx=3, bg=bgColor, fg=textColor).pack()
         Label(root, text="unless the following settings are changed.",
-              pady=0, padx=3).pack()
+              pady=0, padx=3, bg=bgColor, fg=textColor).pack()
 
-        empty5 = Label(root, text="", pady=5)
-        Label(root, text="", pady=1).pack()
+        empty5 = Label(root, text="", pady=5, bg=bgColor, fg=textColor)
+        Label(root, text="", pady=1, bg=bgColor, fg=textColor).pack()
         if whatsBeingRecorded != "Mouse" and whatsBeingRecorded != "Unset":
-            Label(root, text="RECOMMENDED:", pady=1).pack()
-            Label(root, text="Click the button below to make sure", pady=1).pack()
-            Label(root, text="your keyboard script is exactly how", pady=1).pack()
-            Label(root, text="you want it.", pady=1).pack()
+            Label(root, text="RECOMMENDED:", pady=1,
+                  bg=bgColor, fg=textColor).pack()
+            Label(root, text="Click the button below to make sure",
+                  pady=1, bg=bgColor, fg=textColor).pack()
+            Label(root, text="your keyboard script is exactly how",
+                  pady=1, bg=bgColor, fg=textColor).pack()
+            Label(root, text="you want it.", pady=1,
+                  bg=bgColor, fg=textColor).pack()
             Button(root, text="Open Keyboard Replay Script", pady=0,
-                   padx=3, command=getInfo).pack()  # starts replaySettingsWindow
+                   padx=3, command=getInfo, bg=bgColor, fg=textColor).pack()  # starts replaySettingsWindow
 
-            Label(root, text="", pady=1).pack()
+            Label(root, text="", pady=1, bg=bgColor, fg=textColor).pack()
 
-        Label(root, text="Loop how many times (default -> 1):", pady=2).pack()
+        Label(root, text="Loop how many times (default -> 1):",
+              pady=2, bg=bgColor, fg=textColor).pack()
         eLoopAmount = Entry(root)
         eLoopAmount.insert(0, '1')
         eLoopAmount.pack()
 
-        Label(root, text="", pady=3)  # empty
+        Label(root, text="", pady=3, bg=bgColor, fg=textColor)  # empty
 
-        Label(root, text="Playback speed (default -> 1):", pady=2).pack()
+        Label(root, text="Playback speed (default -> 1):",
+              pady=2, bg=bgColor, fg=textColor).pack()
         eRunSpeed = Entry(root)
         eRunSpeed.insert(0, '1')
         eRunSpeed.pack()
@@ -344,13 +354,15 @@ def startRecordingWindow():
         mainloop()
 
     root = Tk()
+    bgColor = getColor("bg")
+    textColor = getColor("text")
     importDefaultSettings(root)
 
     title = Label(
-        root, text="Recordings", pady="10", padx="5")
+        root, text="Recordings", pady="10", padx="5", bg=bgColor, fg=textColor)
     title.grid(row=0, column=0)
     instructions = Label(
-        root, text="Choose What To Record:", pady="4", padx="5")
+        root, text="Choose What To Record:", pady="4", padx="5", bg=bgColor, fg=textColor)
 
     # status = Label(root, text="Not Recording",  bd=1, relief=SUNKEN)
 
@@ -359,10 +371,10 @@ def startRecordingWindow():
     inpFieldDrop = OptionMenu(
         root, dropDown, *["Record Mouse", "Record Keyboard [EXPERIMENTAL]", "Record Mouse & KB [EXPERIMENTAL]"])
     openRecordingBtn = Button(
-        root, text="Open Recording Window", padx=10, pady=5, command=lambda: actualRecordingWindow(dropDown.get()))
+        root, text="Open Recording Window", padx=10, pady=5, command=lambda: actualRecordingWindow(dropDown.get()), bg=bgColor, fg=textColor)
 
     empty = Label(
-        root, text="")
+        root, text="", bg=bgColor, fg=textColor)
 
     instructions.grid(row=1, column=0, padx=5, pady=5)
     inpFieldDrop.grid(row=2, column=0, padx=5, pady=5)
@@ -372,3 +384,6 @@ def startRecordingWindow():
     # root.mainloop()
 
     mainloop()
+
+
+# startRecordingWindow()
