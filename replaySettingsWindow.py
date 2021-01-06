@@ -62,7 +62,15 @@ def openReplaySettingsWindow(keysPressedScript):
     text("then tap the 'o' key for 0.1 seconds. And finally, tap", 0)
     text("the 'b' key again for 0.1 seconds; outputting 'bob'.", 0)
 
-    text("", 6)
+    text("", 1)
+
+    def inputBob():
+        scriptEditorInput.insert(INSERT, "wait,2,b,0.1,o,0.1,b,0.1")
+
+    Button(root, text="Try The Bob Script", font=(
+        "Helvetica", 10, "bold"), command=inputBob, bg=bgColor, fg=textColor).pack()
+
+    text("", 5)
     text("If your script doesn't work in replay mode, please either try again", 0)
     text("at making your own script or just use the record feature.", 0)
 

@@ -37,7 +37,7 @@ subtitle = Label(
 
 macros = Button(root, text="Macros", padx=10, pady=5,
                 command=startMacro, bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
-recordings = Button(root, text="Recordings",
+recordings = Button(root, text="Recordings & Replays",
                     padx=10, pady=5, command=startRecording, bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
 
 title.pack()

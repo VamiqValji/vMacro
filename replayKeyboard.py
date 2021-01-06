@@ -5,6 +5,7 @@ from os.path import isfile, join
 import pynput
 from pynput.keyboard import Key, Listener, Controller
 import sys
+import math
 
 
 def replayKB(keysPressedList, loopAmount, replaySpeed):
@@ -14,8 +15,9 @@ def replayKB(keysPressedList, loopAmount, replaySpeed):
     keyboard = Controller()
     keysPressedList = keysPressedList * int(round(loopAmount, 0))
     for k in keysPressedList:
+        print(k)
         try:
-            if keysPressedList.index(k) < len(keysPressedList):
+            if keysPressedList.index(k) <= len(keysPressedList):
                 k = keysPressedList.index(k) * 2
                 if keysPressedList[k] != "wait":
                     keyboard.press(keysPressedList[k])
@@ -64,7 +66,14 @@ def getInfo():
     replayKB(keysPressedList, loopAmount, replaySpeed)
 
 
-# getInfo()
+getInfo()
 
-# with Listener() as listener:
+# def on_press(key):
+#     if key == Key.esc:
+#         print("\nExited vMacro (Replay).\n")
+#         sys.exit("User manually exited replay script.")
+#         return False
+
+
+# with Listener(on_press=on_press) as listener:
 #     listener.join()  # loop until broken out

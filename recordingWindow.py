@@ -74,7 +74,7 @@ def startRecordingWindow():
                                 "Incorrect Submission.", "Please select valid inputs (numbers).")
                     except:
                         pass
-                elif whatsBeingRecorded == "Keyboard":
+                elif whatsBeingRecorded == "Keyboard [EXPERIMENTAL]":
                     try:
                         if kbUnderstand != "Unset":  # User understands how to stop keyboard recording
                             if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
@@ -133,32 +133,32 @@ def startRecordingWindow():
                    padx=10, pady=10, command=lambda: RECORD(eTimeInterval.get(), eTime.get(), iUnderstandDropDown.get(), eRecordingAndReplayDelay.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold")).pack()
 
         def renderMouseSettings():
-
-            mouseSettingsTitle = Label(
-                root, text="Mouse Settings", pady="12", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
-            mouseSettingsTitle.pack()
-            instructionsTxtMouse = Label(
-                root, text="To end the mouse recording once its started, move your mouse.", pady="8", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 10, "bold"))
-            intervalTxt1 = Label(
-                root, text="Enter a time interval for mouse tracking (seconds);", pady="0", padx="5", bg=bgColor, fg=textColor)
-            intervalTxt2 = Label(
-                root, text="the lower the number, the smoother the tracking.", pady="0", padx="5", bg=bgColor, fg=textColor)
-            intervalTxt3 = Label(
-                root, text="Enter the amount of time the mouse will be tracked (seconds)", pady="8", padx="5", bg=bgColor, fg=textColor)
-            # intervalTxt4 = Label(
-            #     root, text="Enter the amount of time the recording and replay will start after (delay).", pady="8", padx="5")
-            instructionsTxtMouse.pack()
-            intervalTxt1.pack()
-            intervalTxt2.pack()
-            eTimeInterval.pack()
-            intervalTxt3.pack()
-            eTime.pack()
-            # intervalTxt4.pack()
-            # eRecordingAndReplayDelay.pack()
-            # Label(root, text="", pady=3).pack()
-            OptionMenu(
-                root, moveToEnd, *["Manually Close To End Replay", "Move Mouse to End Replay"]).pack()
-            Label(root, text="", pady=3, bg=bgColor, fg=textColor).pack()
+            if whatsBeingRecorded != "Keyboard [EXPERIMENTAL]":
+                mouseSettingsTitle = Label(
+                    root, text="Mouse Settings", pady="8", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
+                mouseSettingsTitle.pack()
+                instructionsTxtMouse = Label(
+                    root, text="To end the mouse recording once its started, move your mouse.", pady="8", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 10, "bold"))
+                intervalTxt1 = Label(
+                    root, text="Enter a time interval for mouse tracking (seconds);", pady="0", padx="5", bg=bgColor, fg=textColor)
+                intervalTxt2 = Label(
+                    root, text="the lower the number, the smoother the tracking.", pady="0", padx="5", bg=bgColor, fg=textColor)
+                intervalTxt3 = Label(
+                    root, text="Enter the amount of time the mouse will be tracked (seconds)", pady="8", padx="5", bg=bgColor, fg=textColor)
+                # intervalTxt4 = Label(
+                #     root, text="Enter the amount of time the recording and replay will start after (delay).", pady="8", padx="5")
+                instructionsTxtMouse.pack()
+                intervalTxt1.pack()
+                intervalTxt2.pack()
+                eTimeInterval.pack()
+                intervalTxt3.pack()
+                eTime.pack()
+                # intervalTxt4.pack()
+                # eRecordingAndReplayDelay.pack()
+                # Label(root, text="", pady=3).pack()
+                OptionMenu(
+                    root, moveToEnd, *["Manually Close To End Replay", "Move Mouse to End Replay"]).pack()
+                Label(root, text="", pady=3, bg=bgColor, fg=textColor).pack()
             if whatsBeingRecorded == "Mouse":
                 renderRecordBtn()
 
@@ -168,7 +168,7 @@ def startRecordingWindow():
 
         def renderKBSettings():
             KBSettingsTitle = Label(
-                root, text="Keyboard Settings", pady="12", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
+                root, text="Keyboard Settings", pady="8", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
             instructionsTxtKB1 = Label(
                 root, text="To end the keyboard recording", pady="4", padx="5", bg=bgColor, fg=textColor)
             instructionsTxtKB2 = Label(
@@ -195,7 +195,7 @@ def startRecordingWindow():
                                  "Please choose what you would like to record.")
         elif whatsBeingRecorded == "Mouse":
             renderMouseSettings()
-        elif whatsBeingRecorded == "Keyboard":
+        elif whatsBeingRecorded == "Keyboard [EXPERIMENTAL]":
             renderKBSettings()
         else:  # KB & M
             renderMouseSettings()
@@ -240,7 +240,7 @@ def startRecordingWindow():
             def startReplay(timeInterv, time, whatsBeingRecorded, kbUnderstand):
                 if whatsBeingRecorded == "Mouse":
                     os.startfile("replayMouse.py")
-                elif whatsBeingRecorded == "Keyboard":
+                elif whatsBeingRecorded == "Keyboard [EXPERIMENTAL]":
                     os.startfile("replayKeyboard.py")
                 else:  # KB & M
                     os.startfile("replayMouse.py")
@@ -267,7 +267,7 @@ def startRecordingWindow():
                             "Incorrect Submission.", "Please select valid inputs (numbers).")
                 except:
                     pass
-            elif whatsBeingRecorded == "Keyboard":
+            elif whatsBeingRecorded == "Keyboard [EXPERIMENTAL]":
                 try:
                     checkKB()
                     if kbUnderstand != "Unset":
@@ -292,20 +292,24 @@ def startRecordingWindow():
             root, text="Enter the amount of time the recording and replay will start after (delay).", pady="8", padx="5", bg=bgColor, fg=textColor)
         intervalTxt4.pack()
         eRecordingAndReplayDelay.pack()
-        Label(root, text="", pady=3, bg=bgColor, fg=textColor).pack()
+        Label(root, text="", pady=2, bg=bgColor, fg=textColor).pack()
 
         global eLoopAmount
         global eRunSpeed
 
-        empty4 = Label(root, text="", pady=4, bg=bgColor, fg=textColor)
+        empty4 = Label(root, text="", pady=1, bg=bgColor, fg=textColor)
+        # empty5 = Label(root, text="", pady=1, bg=bgColor, fg=textColor)
         replayBtn = Button(root, text="REPLAY", padx=10,
                            pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get(), eLoopAmount.get(), eRunSpeed.get(), moveToEnd.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
 
         # resetBtn.pack()
         # resetTxt.pack()
 
+        Label(root, text="Replays", pady=0,
+              bg=bgColor, fg=textColor, font=("Helvetica", 18, "bold")).pack()
         empty4.pack()
         replayBtn.pack()
+        # empty5.pack()
 
         Label(root, text="Replay Settings", pady=7,
               bg=bgColor, fg=textColor, font=("Helvetica", 11)).pack()

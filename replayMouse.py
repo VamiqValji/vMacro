@@ -40,8 +40,8 @@ def replayMouse(timeInterv, mTime, mouseMonitorList, loopAmount, replaySpeed, en
             if replayTimeCounter > maxTime:
                 if loop < loopAmount:
                     replayTimeCounter = 0
-                print("Mouse click.")
-                mouse.click(Button.left, 2)
+                # print("Mouse click.")
+                # mouse.click(Button.left, 2)
             loop += 1
 
 
