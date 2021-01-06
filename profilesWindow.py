@@ -66,11 +66,11 @@ def openProfilesWindow():
             importDefaultSettings(prof)
             # Input Field 1
             inpField1Txt = Label(
-                prof, text=f"Edit Profile {str(profileNum)} ({pName})", pady="5", padx="5", bg=bgColor, fg=textColor)
+                prof, text=f"Edit Profile {str(profileNum)} ({pName})", pady="5", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 18, "bold"))
             inpField1Txt.pack()
             # Input Field 2
             inpField2Txt = Label(
-                prof, text="What key will be replaced?", pady="5", padx="5", bg=bgColor, fg=textColor)
+                prof, text="What key will be replaced?", pady="5", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
             inpField2Txt.pack()
             dropDownReplaced = StringVar()
             dropDownReplaced.set(pReplaced)
@@ -79,7 +79,7 @@ def openProfilesWindow():
             inpField2Drop.pack()
             # Input Field 3
             inpField3Txt = Label(
-                prof, text="What key would you like to map the replacement to?", pady="5", padx="5", bg=bgColor, fg=textColor)
+                prof, text="What key would you like to map the replacement to?", pady="5", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
             inpField3Txt.pack()
             dropDownReplacement = StringVar()
             dropDownReplacement.set(pReplacement)
@@ -100,7 +100,7 @@ def openProfilesWindow():
             empty1 = Label(prof, text="", pady="2", bg=bgColor, fg=textColor)
             empty1.pack()
             submitBtn = Button(
-                prof, text="Submit Changes", pady="0", padx="8", command=lambda: submitChanges(pName, dropDownReplaced.get(), dropDownReplacement.get()), bg=bgColor, fg=textColor)
+                prof, text="Submit Changes", pady="0", padx="8", command=lambda: submitChanges(pName, dropDownReplaced.get(), dropDownReplacement.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
             submitBtn.pack()
             empty2 = Label(prof, text="", pady="1", bg=bgColor, fg=textColor)
             empty2.pack()
@@ -131,10 +131,10 @@ def openProfilesWindow():
     textColor = getColor("text")
     importDefaultSettings(prof)
     profsTitle = Label(
-        prof, text="Profile Settings", pady="10", padx="5", bg=bgColor, fg=textColor)
+        prof, text="Profile Settings", pady="10", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 18, "bold"))
     profsTitle.pack()
     profInpTxt = Label(
-        prof, text="Under which profile would you like to write / overwrite settings to?", pady="5", padx="5", bg=bgColor, fg=textColor)
+        prof, text="Under which profile would you like to write / overwrite settings to?", pady="5", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
     profInpTxt.pack()
     dropWhichProfile = StringVar()
     dropWhichProfile.set("Unset")
@@ -143,18 +143,18 @@ def openProfilesWindow():
         prof, dropWhichProfile, *activeProfiles)
     profInpDrop.pack()
     showSelectionTxt = Button(
-        prof, text="Edit Selected Profile", pady="1", padx="5", command=lambda: profileSettingsFrame(dropWhichProfile.get()), bg=bgColor, fg=textColor)
+        prof, text="Edit Selected Profile", pady="1", padx="5", command=lambda: profileSettingsFrame(dropWhichProfile.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
     showSelectionTxt.pack()
     inpField4TxtSub = Label(
         prof, text="If your profile isn't showing, re-open this window.", pady="0", padx="0", bg=bgColor, fg=textColor)
     inpField4TxtSub.pack()
     addEmptySpace(.5)
     deleteProfsBtn = Button(
-        prof, text="Delete Selected Profile", command=lambda: deleteProfile(dropWhichProfile.get()), padx="4", bg=bgColor, fg=textColor)
+        prof, text="Delete Selected Profile", command=lambda: deleteProfile(dropWhichProfile.get()), padx="4", bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
     deleteProfsBtn.pack()
     addEmptySpace(.5)
     createProfBtn = Button(
-        prof, text="Create New Profile", command=createProfile, bg=bgColor, fg=textColor)
+        prof, text="Create New Profile", command=createProfile, bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
     createProfBtn.pack()
     addEmptySpace(.5)
     mainloop()

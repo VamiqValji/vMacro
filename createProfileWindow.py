@@ -43,18 +43,18 @@ def createProfile():
     textColor = getColor("text")
     importDefaultSettings(prof)
     createProfTitle = Label(
-        prof, text="Profiles", pady="10", padx="5", bg=bgColor, fg=textColor)
+        prof, text="Profiles", pady="10", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 18, "bold"))
     createProfTitle.pack()
     # Input Field 1
     inpField1Txt = Label(
-        prof, text="Profile Name", pady="5", padx="5", bg=bgColor, fg=textColor)
+        prof, text="Profile Name", pady="5", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
     inpField1Txt.pack()
     inpField1Entry = Entry(
         prof, width="10", bg=bgColor, fg=textColor)
     inpField1Entry.pack()
     # Input Field 2
     inpField2Txt = Label(
-        prof, text="What key will be replaced?", pady="5", padx="5", bg=bgColor, fg=textColor)
+        prof, text="What key will be replaced?", pady="5", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
     inpField2Txt.pack()
     dropDownReplaced = StringVar()
     dropDownReplaced.set("Unset")
@@ -63,7 +63,7 @@ def createProfile():
     inpField2Drop.pack()
     # Input Field 3
     inpField3Txt = Label(
-        prof, text="What key would you like to map the replacement to?", pady="5", padx="5", bg=bgColor, fg=textColor)
+        prof, text="What key would you like to map the replacement to?", pady="5", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
     inpField3Txt.pack()
     dropDownReplacement = StringVar()
     dropDownReplacement.set("Unset")
@@ -72,7 +72,7 @@ def createProfile():
     inpField3Drop.pack()
     # Input Field 4
     inpField4Txt = Label(
-        prof, text="Under which profile would you like to write / overwrite these settings to?", pady="5", padx="5", bg=bgColor, fg=textColor)
+        prof, text="Under which profile would you like to write / overwrite these settings to?", pady="5", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
     inpField4Txt.pack()
     dropWhichProfile = StringVar()
     dropWhichProfile.set("Unset")
@@ -92,7 +92,7 @@ def createProfile():
     desc3Txt.pack()
 
     submitBtn = Button(
-        prof, text="Submit", pady="2", command=lambda: submitProfile(inpField1Entry.get(), dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()), bg=bgColor, fg=textColor)
+        prof, text="Submit", pady="2", command=lambda: submitProfile(inpField1Entry.get(), dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
     submitBtn.pack()
     mainloop()
 

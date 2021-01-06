@@ -111,7 +111,7 @@ def startRecordingWindow():
         importDefaultSettings(root)
 
         title = Label(
-            root, text=f"Record: {whatsBeingRecorded}", pady="10", padx="5", bg=bgColor, fg=textColor)
+            root, text=f"Record: {whatsBeingRecorded}", pady="10", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 18, "bold"))
         title.pack()
 
         global eTimeInterval
@@ -130,15 +130,15 @@ def startRecordingWindow():
 
         def renderRecordBtn():
             Button(root, text="Start Recording",
-                   padx=10, pady=10, command=lambda: RECORD(eTimeInterval.get(), eTime.get(), iUnderstandDropDown.get(), eRecordingAndReplayDelay.get()), bg=bgColor, fg=textColor).pack()
+                   padx=10, pady=10, command=lambda: RECORD(eTimeInterval.get(), eTime.get(), iUnderstandDropDown.get(), eRecordingAndReplayDelay.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold")).pack()
 
         def renderMouseSettings():
 
             mouseSettingsTitle = Label(
-                root, text="Mouse Settings", pady="12", padx="5", bg=bgColor, fg=textColor)
+                root, text="Mouse Settings", pady="12", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
             mouseSettingsTitle.pack()
             instructionsTxtMouse = Label(
-                root, text="To end the mouse recording once its started, move your mouse.", pady="8", padx="5", bg=bgColor, fg=textColor)
+                root, text="To end the mouse recording once its started, move your mouse.", pady="8", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 10, "bold"))
             intervalTxt1 = Label(
                 root, text="Enter a time interval for mouse tracking (seconds);", pady="0", padx="5", bg=bgColor, fg=textColor)
             intervalTxt2 = Label(
@@ -168,7 +168,7 @@ def startRecordingWindow():
 
         def renderKBSettings():
             KBSettingsTitle = Label(
-                root, text="Keyboard Settings", pady="12", padx="5", bg=bgColor, fg=textColor)
+                root, text="Keyboard Settings", pady="12", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
             instructionsTxtKB1 = Label(
                 root, text="To end the keyboard recording", pady="4", padx="5", bg=bgColor, fg=textColor)
             instructionsTxtKB2 = Label(
@@ -294,17 +294,12 @@ def startRecordingWindow():
         eRecordingAndReplayDelay.pack()
         Label(root, text="", pady=3, bg=bgColor, fg=textColor).pack()
 
-        # resetBtn = Button(root, text="Reset", padx=10,
-        #                   pady=5, command=resetScripts)
-
-        # resetTxt = Label(root, text="Not working? Click the reset button.")
-
         global eLoopAmount
         global eRunSpeed
 
         empty4 = Label(root, text="", pady=4, bg=bgColor, fg=textColor)
         replayBtn = Button(root, text="REPLAY", padx=10,
-                           pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get(), eLoopAmount.get(), eRunSpeed.get(), moveToEnd.get()), bg=bgColor, fg=textColor)
+                           pady=10, command=lambda: REPLAY(eTimeInterval.get(), eTime.get(), whatsBeingRecorded, iUnderstandDropDown.get(), eLoopAmount.get(), eRunSpeed.get(), moveToEnd.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
 
         # resetBtn.pack()
         # resetTxt.pack()
@@ -313,7 +308,7 @@ def startRecordingWindow():
         replayBtn.pack()
 
         Label(root, text="Replay Settings", pady=7,
-              bg=bgColor, fg=textColor).pack()
+              bg=bgColor, fg=textColor, font=("Helvetica", 11)).pack()
         Label(root, text="Replays will run at their recorded settings",
               pady=0, padx=3, bg=bgColor, fg=textColor).pack()
         Label(root, text="unless the following settings are changed.",
@@ -323,7 +318,7 @@ def startRecordingWindow():
         Label(root, text="", pady=1, bg=bgColor, fg=textColor).pack()
         if whatsBeingRecorded != "Mouse" and whatsBeingRecorded != "Unset":
             Label(root, text="RECOMMENDED:", pady=1,
-                  bg=bgColor, fg=textColor).pack()
+                  bg=bgColor, fg=textColor, font=("Helvetica", 10, "bold")).pack()
             Label(root, text="Click the button below to make sure",
                   pady=1, bg=bgColor, fg=textColor).pack()
             Label(root, text="your keyboard script is exactly how",
@@ -331,7 +326,7 @@ def startRecordingWindow():
             Label(root, text="you want it.", pady=1,
                   bg=bgColor, fg=textColor).pack()
             Button(root, text="Open Keyboard Replay Script", pady=0,
-                   padx=3, command=getInfo, bg=bgColor, fg=textColor).pack()  # starts replaySettingsWindow
+                   padx=3, command=getInfo, bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold")).pack()  # starts replaySettingsWindow
 
             Label(root, text="", pady=1, bg=bgColor, fg=textColor).pack()
 
@@ -359,10 +354,10 @@ def startRecordingWindow():
     importDefaultSettings(root)
 
     title = Label(
-        root, text="Recordings", pady="10", padx="5", bg=bgColor, fg=textColor)
+        root, text="Recordings", pady="10", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 18, "bold"))
     title.grid(row=0, column=0)
     instructions = Label(
-        root, text="Choose What To Record:", pady="4", padx="5", bg=bgColor, fg=textColor)
+        root, text="Choose What To Record:", pady="4", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
 
     # status = Label(root, text="Not Recording",  bd=1, relief=SUNKEN)
 
@@ -371,7 +366,7 @@ def startRecordingWindow():
     inpFieldDrop = OptionMenu(
         root, dropDown, *["Record Mouse", "Record Keyboard [EXPERIMENTAL]", "Record Mouse & KB [EXPERIMENTAL]"])
     openRecordingBtn = Button(
-        root, text="Open Recording Window", padx=10, pady=5, command=lambda: actualRecordingWindow(dropDown.get()), bg=bgColor, fg=textColor)
+        root, text="Open Recording Window", padx=10, pady=5, command=lambda: actualRecordingWindow(dropDown.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
 
     empty = Label(
         root, text="", bg=bgColor, fg=textColor)

@@ -24,18 +24,20 @@ f.close()
 
 def returnColors():
     theme = settings[0]
-    if theme == "Default":
-        bgColor = "#ecf0f1"
-        textColor = "black"
-    elif theme == "Dark":
+
+    if theme == "Dark":
         bgColor = "#2c3e50"
         textColor = "#ecf0f1"
     elif theme == "Black":
         bgColor = "black"
         textColor = "white"
-    if theme == "Bright":
+    elif theme == "Bright":
         bgColor = "#fd79a8"
         textColor = "#2d3436"
+    else:
+        # theme == "Default":
+        bgColor = "#ecf0f1"
+        textColor = "black"
     return[bgColor, textColor]
 
 
@@ -61,3 +63,14 @@ def getColor(RETURN):
 # Label(text="Default Window Settings").pack()
 
 # mainloop()
+
+# TITLE:
+# , font=("Helvetica", 18, "bold")
+# SUBTITLE:
+# , font=("Helvetica", 11)
+# BUTTON:
+# , font=("Helvetica", 10, "bold")
+# TEXT:
+# , font=("Helvetica", 10)
+# BUTTON:
+# , font=("Helvetica", 11, "bold")

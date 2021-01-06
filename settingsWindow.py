@@ -24,10 +24,12 @@ def openSettingsWindow():
     textColor = getColor("text")
     importDefaultSettings(root)
 
-    Label(root, text="Settings", bg=bgColor, fg=textColor).pack()
+    Label(root, text="Settings", bg=bgColor, fg=textColor,
+          font=("Helvetica", 18, "bold")).pack()
     # Label(root, text="", pady=1, bg=bgColor, fg=textColor).pack()
 
-    Label(root, text="Theme", bg=bgColor, fg=textColor).pack()
+    Label(root, text="Theme", bg=bgColor,
+          fg=textColor, font=("Helvetica", 11)).pack()
     themeDropDown = StringVar()
     themeDropDown.set("Default")
 
@@ -36,7 +38,7 @@ def openSettingsWindow():
         root, themeDropDown, *["Default", "Dark", "Black", "Bright"]).pack()
     # empty()
     Button(
-        root, text="Save Changes", padx=10, pady=5, command=lambda: saveChanges(themeDropDown.get()), bg=bgColor, fg=textColor).pack()
+        root, text="Save Changes", padx=10, pady=5, command=lambda: saveChanges(themeDropDown.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold")).pack()
     # empty()
     updateTextChanges1 = Label(
         root, text="To see your changes in action,", bg=bgColor, fg=textColor, padx=5)

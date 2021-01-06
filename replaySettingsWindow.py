@@ -47,7 +47,7 @@ def openReplaySettingsWindow(keysPressedScript):
     importDefaultSettings(root)
 
     Label(
-        root, text="Keyboard Script", pady="10", bd=4, bg=bgColor, fg=textColor).pack()
+        root, text="Keyboard Script", pady="10", bd=4, bg=bgColor, fg=textColor, font=("Helvetica", 18, "bold")).pack()
 
     Label(
         root, text="", pady="5", bd=4, bg=bgColor, fg=textColor).pack()
@@ -78,7 +78,7 @@ def openReplaySettingsWindow(keysPressedScript):
     # text("Output:", 6)
     text("", 3)
     Button(root, text="Save Changes", pady=5,
-           padx=5, command=saveChanges, bg=bgColor, fg=textColor).pack()
+           padx=5, command=saveChanges, bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold")).pack()
     global changesSavedLabel
     changesSavedLabel = Label(root, text="", pady=1, bg=bgColor, fg=textColor)
     text("", 4)

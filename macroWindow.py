@@ -60,7 +60,7 @@ def startMacroWindow():
     textColor = getColor("text")
     importDefaultSettings(prof)
     profsTitle = Label(
-        prof, text="Macros", pady="10", padx="5", bg=bgColor, fg=textColor)
+        prof, text="Macros", pady="10", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 18, "bold"))
     profsTitle.pack()
     dropVar = StringVar()
     dropVar.set("Unset")
@@ -68,12 +68,12 @@ def startMacroWindow():
         prof, dropVar, *activeProfiles)
     profDrop.pack()
     runBtn = Button(
-        prof, text="Run", command=lambda: runKeyMacro(dropVar.get()), padx="4", bg=bgColor, fg=textColor)
+        prof, text="Run", command=lambda: runKeyMacro(dropVar.get()), padx="4", bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
     runBtn.pack()
     empty2 = Label(prof, text="", pady="2", bg=bgColor, fg=textColor)
     empty2.pack()
     profSettingsBtn = Button(
-        prof, text="View Selected Profile's Settings", command=lambda: viewProfile(dropVar.get()), padx="4", bg=bgColor, fg=textColor)
+        prof, text="View Selected Profile's Settings", command=lambda: viewProfile(dropVar.get()), padx="4", bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
     profSettingsBtn.pack()
     runTxt = Label(
         prof, text="", padx="4", bg=bgColor, fg=textColor)
@@ -81,15 +81,15 @@ def startMacroWindow():
     empty1 = Label(prof, text="", pady="2", bg=bgColor, fg=textColor)
     empty1.pack()
     profSettingsTxt1 = Label(
-        prof, text=f"For Unset Profile:", pady="2", bg=bgColor, fg=textColor)
+        prof, text=f"For Unset Profile:", pady="2", bg=bgColor, fg=textColor, font=("Helvetica", 11))
     profSettingsTxt1.pack()
     profSettingsTxt2 = Label(
-        prof, text=f"Please Select A Profile", pady="2", bg=bgColor, fg=textColor)
+        prof, text=f"Please Select A Profile", pady="2", bg=bgColor, fg=textColor, font=("Helvetica", 11))
     profSettingsTxt2.pack()
     empty3 = Label(prof, text="", pady="1", bg=bgColor, fg=textColor)
     empty3.pack()
     profSettingsBtn = Button(
-        prof, text="Profiles Settings", command=openProfilesWindow, padx="4", bg=bgColor, fg=textColor)
+        prof, text="Profiles Settings", command=openProfilesWindow, padx="4", bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
     profSettingsBtn.pack()
     empty4 = Label(prof, text="", pady="1", bg=bgColor, fg=textColor)
     empty4.pack()
