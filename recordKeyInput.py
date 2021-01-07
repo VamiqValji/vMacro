@@ -7,9 +7,9 @@ from pynput.keyboard import Key, Listener
 import sys
 
 
-def record(profileLoc, RorR):
+def record(profNum, RorR):
     print(
-        "\n\n\nRECORD YOUR KEY BY PRESSING ANY BUTTON ON THE KEYBOARD\n")
+        "\n\n\nRECORD KEY INPUT BY PRESSING ANY BUTTON ON THE KEYBOARD\n")
 
     def on_press(key):
 
@@ -17,26 +17,26 @@ def record(profileLoc, RorR):
 
             print(key)
 
-            os.remove(
-                f"../vMacro/profiles/{profileLoc}/replaced_OR_replacement.txt")
+            # os.remove(
+            #     f"../vMacro/profiles/{profNum}/replaced_OR_replacement.txt")
 
             if RorR == "replaced":
                 my_file = os.path.join(profFolder, "recordingReplaced.txt")
                 f = open(my_file, "w")
-                f.write(key)
+                f.write(str(key).strip("'"))
                 f.close()
             elif RorR == "replacement":
                 my_file = os.path.join(profFolder, "recordingReplacement.txt")
                 f = open(my_file, "w")
-                f.write(key)
+                f.write(str(key).strip("'"))
                 f.close()
 
             print(f"{key} pressed.")
 
             # os.remove(
-            #     f"../vMacro/profiles/{profileLoc}/recordingReplaced.txt")
+            #     f"../vMacro/profiles/{profNum}/recordingReplaced.txt")
             # os.remove(
-            #     f"../vMacro/profiles/{profileLoc}/recordingReplacement.txt")
+            #     f"../vMacro/profiles/{profNum}/recordingReplacement.txt")
 
             sys.exit()
         else:
@@ -46,20 +46,35 @@ def record(profileLoc, RorR):
         listener.join()  # loop until broken out
 
 
-def getInfo(profileLoc):
+def getInfo():
 
     global profFolder
-    profFolder = os.path.dirname(os.path.abspath(
-        __file__)) + f"/profiles/{profileLoc}/"  # + f"/logs/"
 
-    my_file = os.path.join(profFolder, "replaced_OR_replacement.txt")
+    profFolder = os.path.dirname(os.path.abspath(
+        __file__)) + "/profiles/"  # + f"/logs/"
+
+    # my_file = os.path.join(profFolder, "profNum.txt")
+    my_file = f"../vMacro/profiles/profNum.txt"
     f = open(my_file, "r")
-    replacedOrReplacement = f.readlines()
+    profNum = f.read()
     f.close()
 
-    RorR = replacedOrReplacement[0]
+    # os.remove(my_file)
 
-    record(profileLoc, RorR)
+    profFolder = profFolder + f"{profNum}/"
+
+    my_file = os.path.join(profFolder, "recordingInputInfo.txt")
+    f = open(my_file, "r")
+    recInfo = f.readlines()
+    f.close()
+
+    RorR = recInfo[0]
+    # profNum = recInfo[0]
+
+    record(profNum, RorR)
+
+
+getInfo()
 
 # with Listener(on_press=on_press) as listener:
 #     listener.join()  # loop until broken out

@@ -6,7 +6,7 @@ import os
 from os import path
 from os import listdir
 from os.path import isfile, join
-from recordKeyInput import getInfo
+# from recordKeyInput import getInfo
 import time
 
 # f = open("keysPressed_prev_log.txt", "r")
@@ -27,12 +27,38 @@ def popUp():
 
 
 def submitProfile(profileName, replaced, replacement, profileLoc):
+
     print(profileName)
     print(replaced)
     print(replacement)
     print(profileLoc)
     if len(profileName) > 0 and replaced != "Unset" and replacement != "Unset" and profileLoc != "Unset":
         profileLoc = (profileLoc.replace(" ", "")).lower()
+        # f = open(os.path.join(profFolder, "recordingInputInfo.txt", "r"))
+        # RorR = f.readlines()[0]
+        # f.close()
+        # if path.exists(os.path.join(profFolder, "recordingInputInfo.txt")):
+        #     if RorR == "replaced":
+        #         f = open(os.path.join(profFolder,"recordingReplaced.txt"))
+        #         replaced = f.readlines()[0]
+        #         f.close()
+        #     elif RorR == "replacement":
+        #         f = open(os.path.join(profFolder,"recordingReplacement.txt"))
+        #         replacement = f.readlines()[0]
+        #         f.close()
+
+        if path.exists(os.path.join(profFolder, "recordingReplaced.txt")):
+            f = open(os.path.join(profFolder, "recordingReplaced.txt"))
+            replaced = f.readlines()[0]
+            f.close()
+            os.remove(os.path.join(profFolder, "recordingReplaced.txt"))
+
+        if path.exists(os.path.join(profFolder, "recordingReplacement.txt")):
+            f = open(os.path.join(profFolder, "recordingReplacement.txt"))
+            replacement = f.readlines()[0]
+            f.close()
+            os.remove(os.path.join(profFolder, "recordingReplacement.txt"))
+
         f = open(f"../vMacro/profiles/{profileLoc}/macro.txt", "w")
         f.write(f"{profileName}\n{replaced}\n{replacement}")
         f.close()
@@ -44,55 +70,78 @@ def submitProfile(profileName, replaced, replacement, profileLoc):
 
 def createProfile():
 
+    global dropDownReplaced
+    global drownDownReplacement
+
     def recordHandler(profileName, replaced, replacement, profileLoc, recordedReplaced=False, recordedReplacement=False):
 
+        global profFolder
+        profileLoc = (profileLoc.replace(" ", "")).lower()
         profFolder = os.path.dirname(os.path.abspath(
             __file__)) + f"/profiles/{profileLoc}/"  # + f"/logs/"
 
-        profileLoc = (profileLoc.replace(" ", "")).lower()
-
         try:
-            os.remove(os.path.join(profFolder, "recordingReplaced.txt"))
-            os.remove(os.path.join(profFolder, "recordingReplacement.txt"))
-        except:
-            messagebox.showerror("Error", "Please select a profile first.")
+            # if profileLoc != "" and profileLoc == "unset":
+            # os.remove(os.path.join(profFolder, "recordingInputInfo.txt"))
 
-        f = open(
-            f"../vMacro/profiles/{profileLoc}/replaced_OR_replacement.txt", "w")
-        if recordedReplaced == True:
-            f.write(f"replaced")
-        elif recordedReplacement == True:
-            f.write(f"replacement")
-        f.close()
-
-        # os.startfile("recordKeyInput.py")
-        getInfo(profileLoc)
-
-        while path.exists(f"../vMacro/profiles/{profileLoc}/replaced_OR_replacement.txt") == True:
-            time.sleep(0.1)
-
-        # run following kid once the above while loop above condition isn't met (only not met after user input is given)
-
-        # and profileLoc != "Unset":
-        if len(profileName) > 0 and replaced != "Unset" and replacement != "Unset":
-            f = open(f"../vMacro/profiles/{profileLoc}/macro.txt", "w")
-            f.write(f"{profileName}\n{replaced}\n{replacement}")
+            f = open(
+                f"../vMacro/profiles/{profileLoc}/recordingInputInfo.txt", "w")
+            if recordedReplaced == True:
+                f.write(f"replaced")
+            elif recordedReplacement == True:
+                f.write(f"replacement")
             f.close()
+
+            f = open(
+                f"../vMacro/profiles/profNum.txt", "w")
+            f.write(profileLoc)
+            # print(profileLoc)
+            f.close()
+
+            os.startfile("recordKeyInput.py")
+            if recordedReplaced == True:
+                dropDownReplaced.set("Recorded / Recording")
+            if recordedReplacement == True:
+                dropDownReplacement.set("Recorded / Recording")
+
+            # getInfo(profileLoc)
+
+            # while path.exists(f"../vMacro/profiles/{profileLoc}/recordingInputInfo.txt") == True:
+            #     # time.sleep(0.1)
+            #     pass
+
+            # run following kid once the above while loop above condition isn't met (only not met after user input is given)
+
+            # and profileLoc != "Unset":
+            # if len(profileName) > 0 and replaced != "Unset" and replacement != "Unset":
+            # f = open(f"../vMacro/profiles/{profileLoc}/macro.txt", "w")
+            # f.write(f"{profileName}\n{replaced}\n{replacement}")
+            # f.close()
+
+            # if recordedReplaced == True:
+            #     replacedBool = True
+
+            # if recordedReplacement == True:
+            #     replacementBool = True
             # messagebox.showinfo("Recording Success",
             #                     "Profile addition / changes have been made.")
-            if recordedReplaced == True:
-                submitProfile(profileName, replaced, replacement, profileLoc)
-            elif recordedReplacement == True:
-                submitProfile(profileName, replaced, replacement, profileLoc)
-        else:
-            popUp()
+            # if recordedReplaced == True:
+            #     submitProfile(profileName, replaced,
+            #                   replacement, profileLoc)
+            # elif recordedReplacement == True:
+            #     submitProfile(profileName, replaced,
+            #                   replacement, profileLoc)
+            # else:
+            #     popUp()
+        except:
+            messagebox.showerror("Error", "Please select a profile first.")
 
     prof = Toplevel()
     bgColor = getColor("bg")
     textColor = getColor("text")
     importDefaultSettings(prof)
     createProfTitle = Label(
-        prof, text="Profiles", pady="10", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 18, "bold"))
+        prof, text="Create Profile", pady="10", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 18, "bold"))
     createProfTitle.pack()
     # Input Field 1
     inpField1Txt = Label(
@@ -160,14 +209,19 @@ def createProfile():
         prof, text="was being pressed by you) by the computer as well.", pady="0", padx="8", bg=bgColor, fg=textColor)
     desc3Txt.pack()
 
+    def beforeSubmitProfile(profileName, replaced, replacement, profileLoc):
+        dropDownReplaced.set("Unset")
+        dropDownReplacement.set("Unset")
+        submitProfile(profileName, replaced, replacement, profileLoc)
+
     Label(
         prof, text="", pady="1", padx="5", bg=bgColor, fg=textColor).pack()
     submitBtn = Button(
-        prof, text="Submit", pady="2", command=lambda: submitProfile(inpField1Entry.get(), dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
+        prof, text="Submit", pady="2", command=lambda: beforeSubmitProfile(inpField1Entry.get(), dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
     submitBtn.pack()
     Label(
         prof, text="", pady="1", padx="5", bg=bgColor, fg=textColor).pack()
     mainloop()
 
 
-createProfile()
+# createProfile()
