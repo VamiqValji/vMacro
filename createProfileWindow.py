@@ -28,12 +28,13 @@ def popUp():
 
 def submitProfile(profileName, replaced, replacement, profileLoc):
 
-    print(profileName)
-    print(replaced)
-    print(replacement)
-    print(profileLoc)
+    # print(profileName)
+    # print(replaced)
+    # print(replacement)
+    # print(profileLoc)
     if len(profileName) > 0 and replaced != "Unset" and replacement != "Unset" and profileLoc != "Unset":
-        profileLoc = (profileLoc.replace(" ", "")).lower()
+        profileLoc = ((profileLoc.replace(" ", "")).replace(
+            " (Empty)", "")).lower()
 
         if path.exists(os.path.join(profFolder, "recordingReplaced.txt")):
             f = open(os.path.join(profFolder, "recordingReplaced.txt"))
@@ -61,10 +62,22 @@ def createProfile():
     global dropDownReplaced
     global drownDownReplacement
 
+    # Helps users distinguish which profiles are empty and which aren't when picking a profile to create / overwrite
+    listOfProfiles = []
+    for i in range(1, 10):
+        mypath = f"../vMacro/profiles/profile{i}"
+        files = [f for f in listdir(mypath)]
+        if "macro.txt" in files:
+            # print(f"Profile {i} has a macro file.")
+            listOfProfiles = listOfProfiles + [f"Profile {i}"]
+        else:
+            listOfProfiles = listOfProfiles + [f"Profile {i} (Empty)"]
+
     def recordHandler(profileName, replaced, replacement, profileLoc, recordedReplaced=False, recordedReplacement=False):
 
         global profFolder
-        profileLoc = (profileLoc.replace(" ", "")).lower()
+        profileLoc = ((profileLoc.replace(" ", "")).replace(
+            " (Empty)", "")).lower()
         profFolder = os.path.dirname(os.path.abspath(
             __file__)) + f"/profiles/{profileLoc}/"  # + f"/logs/"
 

@@ -48,6 +48,10 @@ def openProfilesWindow():
             # f.close()
             # messagebox.showinfo("Settings Changed", "Submission complete.")
 
+            profileLoc = (profileLoc.replace(" ", "")).lower()
+            profFolder = os.path.dirname(os.path.abspath(
+                __file__)) + f"/profiles/{profileLoc}/"  # + f"/logs/"
+
             if len(profName) > 0 and replaced != "Unset" and replacement != "Unset" and profileLoc != "Unset":
                 profileLoc = (profileLoc.replace(" ", "")).lower()
 
@@ -77,14 +81,13 @@ def openProfilesWindow():
 
         def recordHandler(replaced, replacement, profileLoc, recordedReplaced=False, recordedReplacement=False):
 
-            print("\n")
-            print(replaced)
-            print(replacement)
-            print(profileLoc)
-            print(recordedReplaced)
-            print(recordedReplacement)
+            # print("\n")
+            # print(replaced)
+            # print(replacement)
+            # print(profileLoc)
+            # print(recordedReplaced)
+            # print(recordedReplacement)
 
-            global profFolder
             profileLoc = (profileLoc.replace(" ", "")).lower()
             profFolder = os.path.dirname(os.path.abspath(
                 __file__)) + f"/profiles/{profileLoc}/"  # + f"/logs/"
@@ -245,4 +248,4 @@ def openProfilesWindow():
     mainloop()
 
 
-openProfilesWindow()
+# openProfilesWindow()

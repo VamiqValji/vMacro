@@ -46,6 +46,11 @@ def runKeysMacro(profileNum):
             else:
                 print(f"{key} held down.")
 
+        def pressKey():
+            keyboard.press(replacement)
+            time.sleep(0.05)
+            keyboard.release(replacement)
+
         def on_release(key):
 
             global pressed
@@ -56,18 +61,18 @@ def runKeysMacro(profileNum):
                 print("\nExited vMacro.\n")
                 os.startfile("../vMacro/logs/keysPressed.txt")
                 clearRunningScripts()
-                return False  # break out of loop
-            elif key == Key.enter:
-                print("done")
-                clearRunningScripts()
                 sys.exit()
-                return False
+                return False  # break out of loop
+            # elif key == Key.enter:
+            #     print("done")
+            #     clearRunningScripts()
+            #     sys.exit()
+            #     return False
             elif str(key).replace("'", "") == replaced:
-                keyboard.press(replacement)
-                time.sleep(0.05)
-                keyboard.release(replacement)
+                pressKey()
                 # pyautogui.press(replacement)
-                pass
+            elif str(key) == str(replaced):
+                pressKey()
             else:
                 print(f"{key} released.")
 
