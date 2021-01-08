@@ -34,18 +34,6 @@ def submitProfile(profileName, replaced, replacement, profileLoc):
     print(profileLoc)
     if len(profileName) > 0 and replaced != "Unset" and replacement != "Unset" and profileLoc != "Unset":
         profileLoc = (profileLoc.replace(" ", "")).lower()
-        # f = open(os.path.join(profFolder, "recordingInputInfo.txt", "r"))
-        # RorR = f.readlines()[0]
-        # f.close()
-        # if path.exists(os.path.join(profFolder, "recordingInputInfo.txt")):
-        #     if RorR == "replaced":
-        #         f = open(os.path.join(profFolder,"recordingReplaced.txt"))
-        #         replaced = f.readlines()[0]
-        #         f.close()
-        #     elif RorR == "replacement":
-        #         f = open(os.path.join(profFolder,"recordingReplacement.txt"))
-        #         replacement = f.readlines()[0]
-        #         f.close()
 
         if path.exists(os.path.join(profFolder, "recordingReplaced.txt")):
             f = open(os.path.join(profFolder, "recordingReplaced.txt"))
@@ -81,9 +69,6 @@ def createProfile():
             __file__)) + f"/profiles/{profileLoc}/"  # + f"/logs/"
 
         try:
-            # if profileLoc != "" and profileLoc == "unset":
-            # os.remove(os.path.join(profFolder, "recordingInputInfo.txt"))
-
             f = open(
                 f"../vMacro/profiles/{profileLoc}/recordingInputInfo.txt", "w")
             if recordedReplaced == True:
@@ -103,36 +88,6 @@ def createProfile():
                 dropDownReplaced.set("Recorded / Recording")
             if recordedReplacement == True:
                 dropDownReplacement.set("Recorded / Recording")
-
-            # getInfo(profileLoc)
-
-            # while path.exists(f"../vMacro/profiles/{profileLoc}/recordingInputInfo.txt") == True:
-            #     # time.sleep(0.1)
-            #     pass
-
-            # run following kid once the above while loop above condition isn't met (only not met after user input is given)
-
-            # and profileLoc != "Unset":
-            # if len(profileName) > 0 and replaced != "Unset" and replacement != "Unset":
-            # f = open(f"../vMacro/profiles/{profileLoc}/macro.txt", "w")
-            # f.write(f"{profileName}\n{replaced}\n{replacement}")
-            # f.close()
-
-            # if recordedReplaced == True:
-            #     replacedBool = True
-
-            # if recordedReplacement == True:
-            #     replacementBool = True
-            # messagebox.showinfo("Recording Success",
-            #                     "Profile addition / changes have been made.")
-            # if recordedReplaced == True:
-            #     submitProfile(profileName, replaced,
-            #                   replacement, profileLoc)
-            # elif recordedReplacement == True:
-            #     submitProfile(profileName, replaced,
-            #                   replacement, profileLoc)
-            # else:
-            #     popUp()
         except:
             messagebox.showerror("Error", "Please select a profile first.")
 
