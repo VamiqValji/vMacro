@@ -105,5 +105,8 @@ Label(text="", pady=0.5, bg=bgColor, fg=textColor).pack()
 Label(text="Version: 0.9", pady=0.5, bg=bgColor,
       fg=textColor).pack()
 
+Label(text="© Copyright 2021, Vamiq Valji", pady=0.5, bg=bgColor,
+      fg=textColor).pack()
+
 
 mainloop()

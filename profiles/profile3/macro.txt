@@ -1,3 +1,0 @@
-awd
-Key.f5
-Key.f8

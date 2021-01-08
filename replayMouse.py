@@ -32,7 +32,7 @@ def replayMouse(timeInterv, mTime, mouseMonitorList, loopAmount, replaySpeed, en
                 if endMethod == 2:
                     prevPos = mouse.position
                 replayTimeCounter += timeInterval * 2
-                print(replayTimeCounter)
+                # print(replayTimeCounter)
                 time.sleep(timeInterval / replaySpeed)
                 if endMethod == 2 and mouse.position != prevPos:
                     sys.exit()

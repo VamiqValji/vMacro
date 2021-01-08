@@ -32,20 +32,10 @@ def startRecordingWindow():
 
             def startMouseRecord(timeInter, time):
 
-                # f = open("logs/replaySettings.txt", "w")
-                # f.write(
-                #     f"{timeInterv}\n{time}")
-                # f.close()
-                # os.startfile("replay.py")
-
                 f = open("../vMacro/logs/mouseRunSettings.txt", "w")
                 f.write(f"{timeInter}\n{time}")
                 f.close()
                 os.startfile("mouse.py")
-
-            print(timeInterv)
-            print(time)
-            print(kbUnderstand)
 
             if RRdelay.replace(".", "").isdigit():
                 if "Unset" in whatsBeingRecorded:
@@ -79,9 +69,6 @@ def startRecordingWindow():
                         if kbUnderstand != "Unset":  # User understands how to stop keyboard recording
                             if os.path.exists("../vMacro/logs/keysRunning.txt") == False:
                                 os.startfile("keys.py")
-                                # startKBRecord()
-                                # status['text'] = 'Recording'
-                                pass
                             else:
                                 pass
                         else:
@@ -135,10 +122,12 @@ def startRecordingWindow():
         def renderMouseSettings():
             if whatsBeingRecorded != "Keyboard [EXPERIMENTAL]":
                 mouseSettingsTitle = Label(
-                    root, text="Mouse Settings", pady="8", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
+                    root, text="Mouse Settings", pady="6", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
                 mouseSettingsTitle.pack()
-                instructionsTxtMouse = Label(
-                    root, text="To end the mouse recording once its started, move your mouse.", pady="8", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 10, "bold"))
+                Label(root, text="*Mouse clicks are not a supported recording feature as of now.",
+                      pady=4, padx=5, bg=bgColor, fg=textColor, font=("Helvetica", 10)).pack()
+                # instructionsTxtMouse = Label(
+                #     root, text="To end the mouse recording once its started, move your mouse.", pady="8", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 10, "bold"))
                 intervalTxt1 = Label(
                     root, text="Enter a time interval for mouse tracking (seconds);", pady="0", padx="5", bg=bgColor, fg=textColor)
                 intervalTxt2 = Label(
@@ -147,7 +136,7 @@ def startRecordingWindow():
                     root, text="Enter the amount of time the mouse will be tracked (seconds)", pady="8", padx="5", bg=bgColor, fg=textColor)
                 # intervalTxt4 = Label(
                 #     root, text="Enter the amount of time the recording and replay will start after (delay).", pady="8", padx="5")
-                instructionsTxtMouse.pack()
+                # instructionsTxtMouse.pack()
                 intervalTxt1.pack()
                 intervalTxt2.pack()
                 eTimeInterval.pack()

@@ -15,11 +15,6 @@ def record(profNum, RorR):
 
         if key != Key.esc:
 
-            print(key)
-
-            # os.remove(
-            #     f"../vMacro/profiles/{profNum}/replaced_OR_replacement.txt")
-
             if RorR == "replaced":
                 my_file = os.path.join(profFolder, "recordingReplaced.txt")
                 f = open(my_file, "w")
@@ -32,11 +27,6 @@ def record(profNum, RorR):
                 f.close()
 
             print(f"{key} pressed.")
-
-            # os.remove(
-            #     f"../vMacro/profiles/{profNum}/recordingReplaced.txt")
-            # os.remove(
-            #     f"../vMacro/profiles/{profNum}/recordingReplacement.txt")
 
             sys.exit()
         else:

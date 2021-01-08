@@ -5,6 +5,7 @@ import os
 import time
 from os import listdir
 from os.path import isfile, join
+import pyautogui
 # import pyautogui
 
 
@@ -15,28 +16,7 @@ def runKeysMacro(profileNum):
 
         pressed = False
 
-        def clearRunningScripts():
-            try:
-                # if os.path.exists("../vMacro/logs/keysMacroRunning.txt"):
-                #     f = open("../vMacro/logs/keysMacroPressed.txt", "r")
-                #     fp = open(
-                #         "../vMacro/logs/keysMacroPressed_prev_log.txt", "w")
-                #     fp.write(f.read())
-                #     f.close()
-                #     fp.close()
-                #     os.remove("../vMacro/logs/keysMacroRunning.txt")
-                # if os.path.exists("mouseMacroRunning.txt"):
-                #     os.remove("../vMacro/logs/mouseMacroRunning.txt")
-                pass
-            except:
-                pass
-
-        clearRunningScripts()
         print("\n\n\nHit escape to exit!\n\nStarting vMacro (Keyboard).\n")
-
-        # f = open("../vMacro/logs/keysMacroRunning.txt", "w")
-        # f.write("Running")
-        # f.close()
 
         def on_press(key):
             global pressed
@@ -47,30 +27,23 @@ def runKeysMacro(profileNum):
                 print(f"{key} held down.")
 
         def pressKey():
-            keyboard.press(replacement)
-            time.sleep(0.05)
-            keyboard.release(replacement)
+            # keyboard.press(replacement)
+            # time.sleep(0.05)
+            # keyboard.release(replacement)
+            replacementStr = str(replacement).replace("Key.", "")
+            pyautogui.press(replacementStr)
 
         def on_release(key):
 
             global pressed
             pressed = False
-            # print(key == f"'{replaced}'")
-            # print(f"'{replaced}'")
-            if key == Key.esc:
+            if str(key) == "Key.esc":
                 print("\nExited vMacro.\n")
                 os.startfile("../vMacro/logs/keysPressed.txt")
-                clearRunningScripts()
                 sys.exit()
                 return False  # break out of loop
-            # elif key == Key.enter:
-            #     print("done")
-            #     clearRunningScripts()
-            #     sys.exit()
-            #     return False
             elif str(key).replace("'", "") == replaced:
                 pressKey()
-                # pyautogui.press(replacement)
             elif str(key) == str(replaced):
                 pressKey()
             else:

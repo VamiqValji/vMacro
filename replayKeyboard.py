@@ -67,13 +67,3 @@ def getInfo():
 
 
 getInfo()
-
-# def on_press(key):
-#     if key == Key.esc:
-#         print("\nExited vMacro (Replay).\n")
-#         sys.exit("User manually exited replay script.")
-#         return False
-
-
-# with Listener(on_press=on_press) as listener:
-#     listener.join()  # loop until broken out

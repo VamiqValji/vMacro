@@ -29,7 +29,7 @@ def openProfilesWindow():
             mypath = f"../vMacro/profiles/profile{i}"
             files = [f for f in listdir(mypath)]
             if "macro.txt" in files:
-                print(f"Profile {i} has a macro file.")
+                # print(f"Profile {i} has a macro file.")
                 activeProfiles = activeProfiles + [f"Profile {i}"]
 
     def profileSettingsFrame(profileNum):
@@ -80,13 +80,6 @@ def openProfilesWindow():
                                      "Please fill out all of the inputs of the form.")
 
         def recordHandler(replaced, replacement, profileLoc, recordedReplaced=False, recordedReplacement=False):
-
-            # print("\n")
-            # print(replaced)
-            # print(replacement)
-            # print(profileLoc)
-            # print(recordedReplaced)
-            # print(recordedReplacement)
 
             profileLoc = (profileLoc.replace(" ", "")).lower()
             profFolder = os.path.dirname(os.path.abspath(
@@ -155,7 +148,7 @@ def openProfilesWindow():
                 prof, text="What key will be replaced?", pady="5", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
             inpField2Txt.pack()
             dropDownReplaced = StringVar()
-            dropDownReplaced.set(pReplaced)
+            dropDownReplaced.set(str(pReplaced).replace("Key.", ""))
             inpField2Drop = OptionMenu(
                 prof, dropDownReplaced, *listOfLetters)
             inpField2Drop.pack()
@@ -166,7 +159,7 @@ def openProfilesWindow():
                 prof, text="What key would you like to map the replacement to?", pady="5", padx="5", bg=bgColor, fg=textColor, font=("Helvetica", 11))
             inpField3Txt.pack()
             dropDownReplacement = StringVar()
-            dropDownReplacement.set(pReplacement)
+            dropDownReplacement.set(str(pReplacement).replace("Key.", ""))
             inpField3Drop = OptionMenu(
                 prof, dropDownReplacement, *listOfLetters)
             inpField3Drop.pack()
@@ -187,8 +180,14 @@ def openProfilesWindow():
             # Submit
             empty1 = Label(prof, text="", pady="2", bg=bgColor, fg=textColor)
             empty1.pack()
+
+            def beforeSubmitChanges(profileName, replaced, replacement, profileLoc):
+                dropDownReplaced.set("Unset")
+                dropDownReplacement.set("Unset")
+                submitChanges(profileName, replaced, replacement, profileLoc)
+
             submitBtn = Button(
-                prof, text="Submit Changes", pady="0", padx="8", command=lambda: submitChanges(pName, dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
+                prof, text="Submit Changes", pady="0", padx="8", command=lambda: beforeSubmitChanges(pName, dropDownReplaced.get(), dropDownReplacement.get(), dropWhichProfile.get()), bg=bgColor, fg=textColor, font=("Helvetica", 11, "bold"))
             submitBtn.pack()
             empty2 = Label(prof, text="", pady="1", bg=bgColor, fg=textColor)
             empty2.pack()
@@ -226,7 +225,6 @@ def openProfilesWindow():
     profInpTxt.pack()
     dropWhichProfile = StringVar()
     dropWhichProfile.set("Unset")
-    print(activeProfiles)
     profInpDrop = OptionMenu(
         prof, dropWhichProfile, *activeProfiles)
     profInpDrop.pack()

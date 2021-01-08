@@ -5,7 +5,6 @@ from os.path import isfile, join
 import pynput
 from pynput.keyboard import Key, Listener, Controller
 import sys
-# from mouse import *
 
 keyboard = Controller()
 
@@ -19,15 +18,6 @@ appendCount = 0
 
 
 def clearRunningScripts():
-    # path = os.path.dirname(os.path.abspath(__file__))
-    # # joins path of all files in directory
-    # files = [f for f in listdir(path)
-    #          if isfile(join(path, f))]
-    # for file in files:
-    #     if "Running" in file:
-    #         print(file)
-    #         with open(file) as f:
-    #             os.remove(file)
     try:
         if os.path.exists("../vMacro/logs/keysRunning.txt"):
             f = open("../vMacro/logs/keysPressed.txt", "r")
@@ -45,7 +35,7 @@ def clearRunningScripts():
 def writeFile():
     f = open("../vMacro/logs/keysPressed.txt", "w")
     keysPressedStr = ""
-    print(keysPressedList)
+    # print(keysPressedList)
     for keyPressed in keysPressedList:
         if "Key" in (f"{keyPressed}"):
             keyPressed = f",{keyPressed},"
@@ -101,7 +91,7 @@ def replayKB():
                     if keysPressedList[k] != "wait":
                         keyboard.release(keysPressedList[k])
             except:
-                print("done")
+                # print("done")
                 clearRunningScripts()
                 sys.exit()
                 break
@@ -120,13 +110,8 @@ def on_release(key):
     if key == Key.esc:
         print("\nExited vMacro.\n")
         writeFile()
-        # os.startfile("../vMacro/logs/keysPressed.txt")
         clearRunningScripts()
         return False  # break out of loop
-    # elif key == Key.enter:
-    #     if replaying == False:
-    #         replayKB()
-    #         replaying = True
     else:
         if replaying == False:
             keysPressedList.append(key)

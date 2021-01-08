@@ -24,7 +24,7 @@ def startMacroWindow():
             mypath = f"../vMacro/profiles/profile{i}"
             files = [f for f in listdir(mypath)]
             if "macro.txt" in files:
-                print(f"Profile {i} has a macro file.")
+                # print(f"Profile {i} has a macro file.")
                 activeProfiles = activeProfiles + [f"Profile {i}"]
 
     def viewProfile(profileNum):
@@ -42,6 +42,8 @@ def startMacroWindow():
             pReplaced = (profileInfo[1]).replace("\n", "")
             pReplacement = (profileInfo[2]).replace("\n", "")
             profSettingsTxt1["text"] = f"For Profile {profileNum} ({pName}):"
+            pReplaced = str(pReplaced).replace("Key.", "")
+            pReplacement = str(pReplacement).replace("Key.", "")
             profSettingsTxt2["text"] = f"'{pReplaced}' will be mapped to '{pReplacement}'."
         except:
             messagebox.showerror(
