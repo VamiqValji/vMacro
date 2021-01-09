@@ -8,28 +8,39 @@ Projects's Purpose / Features:
 - Intuitive keyboard script editor
 - Functionality and theme customizability
 
-Program Screenshots:
+## Program Screenshots
 
-> Main Window
+-> Main Window
 > ![](readme_images/main.PNG)
-> Macros Window
+
+-> Macros Window
 > ![](readme_images/macros.PNG)
-> Profiles Settings Window
+
+-> Profiles Settings Window
 > ![](readme_images/profileSettings.PNG)
-> Edit Profile Window
+
+-> Edit Profile Window
 > ![](readme_images/editProfile.PNG)
-> Create New Profile Window
+
+-> Create New Profile Window
 > ![](readme_images/createProfile.PNG)
-> Choose Recording (And Playback) Inputs Window
+
+-> Choose Recording (And Playback) Inputs Window
 > ![](readme_images/recordings.PNG)
-> Mouse & Keyboard (Or You Can Choose Them Individually) Recording And Playback Controller Window
+
+-> Mouse & Keyboard (Or You Can Choose Them Individually) Recording And Playback Controller Window
 > ![](readme_images/recordM&KB.PNG)
-> Keyboard Script Editor (For Playback) Window
+
+-> Keyboard Script Editor (For Playback) Window
 > ![](readme_images/keyboardScriptEditor.PNG)
-> User Data Graph Window
+
+-> User Data Graph Window
 > ![](readme_images/userDataGraph.PNG)
-> Settings Window
+
+-> Settings Window
 > ![](readme_images/settings.PNG)
+
+## Usage
 
 To run locally:
 
