@@ -16,7 +16,7 @@ Projects's Purpose / Features:
 -> Macros Window
 > ![](readme_images/macros.PNG)
 
--> Profiles Settings Window
+-> Profile Settings Window
 > ![](readme_images/profileSettings.PNG)
 
 -> Edit Profile Window
