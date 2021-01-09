@@ -3,3 +3,6 @@ logs/*.txt
 test.py
 checkDir.py
 scripts
+dist
+client
+mainWindow.exe
