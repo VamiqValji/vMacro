@@ -55,6 +55,6 @@ This project may be further updated.
 
 Current version -> 0.9
 
-Version 0.9 created in 10 days of starting project.
+Version 0.9 created within 10 days of starting project.
 
 - Vamiq Valji
