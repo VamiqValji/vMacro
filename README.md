@@ -1,5 +1,7 @@
 # vMacro - Desktop GUI App
 
+A robust desktop GUI app specializing in the automation of monotonous tasks.
+
 Projects's Purpose / Features:
 
 - To automate repetitive tasks
